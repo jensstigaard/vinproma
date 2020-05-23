@@ -1,0 +1,31 @@
+{
+  "name": "vinprom-web-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.js",
+  "author": "Jens Stigaard",
+  "license": "ISC",
+  "scripts": {
+    "dev": "npm run development",
+    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "npm run development -- --watch",
+    "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "prod": "npm run production",
+    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+  },
+  "dependencies": {
+    "font-awesome": "^4.7.0",
+    "moment": "^2.26.0",
+    "pug": "^2.0.4",
+    "tailwindcss": "^0.7.4",
+    "vue": "^2.6.11",
+    "vue-native-websocket": "^2.0.14",
+    "vue-timeago": "^3.1.5"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.2",
+    "jsonfile": "^6.0.1",
+    "laravel-mix": "^2.1.11",
+    "laravel-mix-tailwind": "^0.1.0"
+  }
+}

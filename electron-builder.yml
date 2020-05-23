@@ -1,0 +1,2 @@
+extraResources:
+  - { from: "src/web-frontend/dist", to: "web-frontend" }
