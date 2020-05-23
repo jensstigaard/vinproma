@@ -15,7 +15,7 @@ See the [Releases](../../releases) tab for a direct download of the app for Mac 
 
 ## Feature summary
  - Read progress of current input in program
- - HTML mode: View progress as a HTML page
+ - HTML view: View progress as a HTML page - Light or dark mode
  - vMix title mode: Send progress to a vMix title input
 
 
