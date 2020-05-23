@@ -14,7 +14,11 @@ export default {
     commit('addHostToPreviousConnectedVmixHosts', state.vMixConnection.host)
   },
 
-  changeMode({ commit }: { commit: Function }) {
-    commit('changeMode')
-  }
+  toggleTitleMode({ commit }: { commit: Function }) {
+    commit('toggleTitleMode')
+  },
+
+  saveTitleModeSettings({ commit }: { commit: Function }, data: { input: string, widthField: string, textField: string }) {
+    commit('saveTitleModeSettings', data)
+  },
 }

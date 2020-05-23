@@ -6,5 +6,10 @@ export default {
 
   previousVmixConnectionHosts: [],
 
-  mode: 'HTML'
+  titleMode: {
+    enabled: false,
+    input: null,
+    widthField: '',
+    textField: ''
+  }
 }
