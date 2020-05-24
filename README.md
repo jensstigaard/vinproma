@@ -9,8 +9,11 @@ The app is oriented for touch use.
 
 You are free to clone the repository to develop your own app based in this code.
 
-
+## App overview
 ![vMix Input Progress Monitor](./readme_assets/app-overview_010.png "Application overview")
+
+## HTML view
+![vMix Input Progress Monitor HTML view](./readme_assets/html-view.png "HTML view")
 
 ## Downloads
 
