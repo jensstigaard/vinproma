@@ -29,9 +29,20 @@ export default {
    * Save title mode settings
    * @param state
    */
-  saveTitleModeSettings(state: any, data: { input: string, widthField: string, textField: string }) {
+  saveTitleModeSettings(
+    state: any,
+    data: {
+      enabled: boolean,
+      input: string,
+      textField: string,
+      widthField: string,
+      totalWidthForWidthField: number
+    }
+  ) {
+    state.titleMode.enabled = data.enabled
     state.titleMode.input = data.input
     state.titleMode.widthField = data.widthField
     state.titleMode.textField = data.textField
+    state.titleMode.totalWidthForWidthField = data.totalWidthForWidthField
   }
 }

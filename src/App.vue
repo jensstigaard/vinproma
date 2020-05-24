@@ -12,30 +12,31 @@
         div(v-if="!tallyInfo") No inputs found somehow...
         div(v-else)
           div
-            h4 HTML view
-            v-btn(block @click="htmlLightMode")
-              span Light mode: 
-              small {{ htmlLightModeAddress }}
-            v-btn(block @click="htmlDarkMode")
-              span Dark mode: 
-              small {{ htmlDarkModeAddress }}
-          hr.my-2
-          div 
-            h4 XAML mode
-            div Upcoming...
+            v-row
+              v-col
+                h3 HTML view
+                v-btn(block @click="htmlLightMode").my-1
+                  span Light mode: 
+                  small {{ htmlLightModeAddress }}
+                v-btn(block @click="htmlDarkMode").my-1
+                  span Dark mode: 
+                  small {{ htmlDarkModeAddress }}
+              v-divider(vertical)
+              v-col
+                vmix-title-mode-settings(:titles="titles")
 </template>
 
 <script lang="ts">
 import { ipcRenderer, shell } from 'electron'
 import ip from 'ip'
-import Vue from 'vue'
-import Component from 'vue-class-component'
-import { Watch } from 'vue-property-decorator'
+import { Vue, Component, Watch } from 'vue-property-decorator'
 
-import { XmlInputMapper, XmlApiDataParser, XmlOverlayChannels, XmlTransitions } from 'vmix-js-utils'
+import { XmlInputMapper, XmlApiDataParser } from 'vmix-js-utils'
+import { TallySummary } from 'vmix-js-utils/dist/types/tcp'
 
 import AppBar from './AppBar.vue'
-import { TallySummary } from 'vmix-js-utils/dist/types/tcp'
+import VmixTitleModeSettings from './TitleModeSettings.vue'
+import { durationNice } from './utility/time'
 // import PreviewRow from './PreviewRow.vue'
 
 const FETCH_XML_DATA_INTERVAL: number = 1000 // ms
@@ -46,7 +47,8 @@ const sleep = (m: number) => new Promise(r => setTimeout(r, m))
 
 @Component({
   components: {
-    AppBar
+    AppBar,
+    VmixTitleModeSettings
     // PreviewRow
   }
 })
@@ -55,6 +57,7 @@ export default class App extends Vue {
   previewInput: any | null = null
 
   tallyInfo: TallySummary | null = null
+  titles: { [key: string]: any }[] = []
 
   xmlDataInterval: any | null = null
 
@@ -108,12 +111,16 @@ export default class App extends Vue {
 
       const inputs = Object.values(
         XmlInputMapper.mapInputs(XmlInputMapper.extractInputsFromXML(xmlContent), [
+          'type',
+          'fields',
           'title',
           'state',
           'duration',
           'position'
         ])
-      )
+      ) as any[]
+
+      this.titles = inputs.filter((input: { type: string }) => ['GT', 'Xaml'].includes(input.type))
 
       if (!this.tallyInfo) {
         return
@@ -124,6 +131,39 @@ export default class App extends Vue {
       this.programInput = inputs[tallyInfo.program[0] - 1]
 
       this.previewInput = tallyInfo.preview.length ? inputs[tallyInfo.preview[0] - 1] : null
+
+      const titleMode = this.$store.state.titleMode
+      if (titleMode.enabled) {
+        const inputKey = titleMode.input
+
+        // Text field
+        if (titleMode.textField) {
+          const pos = durationNice(Math.floor(this.programInput.position / 1000))
+          const dur = durationNice(Math.floor(this.programInput.duration / 1000))
+
+          // @ts-ignore
+          this.$vMixConnection!.send({
+            Function: 'SetText',
+            Input: inputKey,
+            SelectedName: titleMode.textField,
+            Value: `${pos} / ${dur}`
+          })
+        }
+
+        // Width field
+        if (titleMode.widthField) {
+          // @ts-ignore
+          this.$vMixConnection!.send({
+            Function: 'SetText',
+            Input: inputKey,
+            SelectedName: titleMode.widthField,
+            Value:
+              (titleMode.totalWidthForWidthField *
+                Math.round((this.programInput.position / this.programInput.duration) * 100)) /
+              100
+          })
+        }
+      }
     })
 
     this.xmlDataInterval = setInterval(() => {

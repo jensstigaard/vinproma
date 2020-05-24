@@ -18,7 +18,7 @@ export default {
     commit('toggleTitleMode')
   },
 
-  saveTitleModeSettings({ commit }: { commit: Function }, data: { input: string, widthField: string, textField: string }) {
+  saveTitleModeSettings({ commit }: { commit: Function }, data: { [key: string]: any }) {
     commit('saveTitleModeSettings', data)
-  },
+  }
 }

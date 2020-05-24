@@ -9,7 +9,8 @@ export default {
   titleMode: {
     enabled: false,
     input: null,
-    widthField: '',
-    textField: ''
+    textField: null,
+    widthField: null,
+    totalWidthForWidthField: 1000
   }
 }

@@ -8,7 +8,8 @@ import WebSocket from 'ws'
 import { wss } from './webserver'
 
 // VueX store
-import store from './store'
+// import store from './store'
+import './store'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
