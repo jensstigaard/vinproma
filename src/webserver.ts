@@ -69,8 +69,8 @@ app.get('/dark', (_req: any, res: any) => {
 
 
 // catch 404 and forward to error handler
-app.use((_req: any, res: any, next: any) => {
-	const err = new Error('Page Not Found')
+app.use((req: any, res: any, next: any) => {
+	const err = new Error(`Page Not Found - ${req.originalUrl}`)
 
 	res.status(404)
 	next(err)
