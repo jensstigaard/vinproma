@@ -1,18 +1,28 @@
 <template lang="pug">
 div(style="margin-top: -30px")
 	v-row
-		v-col: h3.pt-5 vMix Title mode
+		v-col
+			h3.pt-5
+				span vMix Title mode
+				v-tooltip(bottom)
+					template(v-slot:activator="{ on }")
+						v-btn(icon v-on="on" color="grey" style="cursor:help")
+							v-icon(small) fa-question-circle
+					small Feed progress back to a title input in vMix. 
+					| A XAML title is recommended, since it can show progress as a progress bar.
 		
 		v-col: v-checkbox(
 			v-model="settings.enabled"
 			label="Enabled"
 			:disabled="insufficientFormData"
 		)
+
 	div
 		v-alert(v-if="!titles.length" color="warning") No title inputs (GT or Xaml) found in vMix instance...
 		div(v-else)
 			// Select title
 			v-select(
+				dense
 				v-model="settings.input"
 				label="Title"
 				:items="titles"
@@ -30,6 +40,7 @@ div(style="margin-top: -30px")
 				)
 				// Select width field
 				v-select(
+					dense
 					v-model="settings.widthField"
 					label="Width field"
 					:items="fieldsAvailable('widthField')"
@@ -38,6 +49,7 @@ div(style="margin-top: -30px")
 				)
 				// Total width for Width field
 				v-text-field(
+					dense
 					v-model="settings.totalWidthForWidthField"
 					label="Total width for Width field"
 				)
