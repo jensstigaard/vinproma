@@ -130,7 +130,15 @@ export default class App extends Vue {
 
       this.programInput = inputs[tallyInfo.program[0] - 1]
 
-      this.previewInput = tallyInfo.preview.length ? inputs[tallyInfo.preview[0] - 1] : null
+      // Parse preview input if not the same as in program,
+      // and the input has duration attribute
+      // Otherwise just set to null
+      this.previewInput =
+        tallyInfo.preview.length &&
+        inputs[tallyInfo.preview[0] - 1].duration &&
+        Number(inputs[tallyInfo.preview[0] - 1].duration)
+          ? inputs[tallyInfo.preview[0] - 1]
+          : null
 
       const titleMode = this.$store.state.titleMode
       if (titleMode.enabled) {
