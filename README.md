@@ -5,7 +5,7 @@
 
 **v**Mix **In**put **Pro**gress **M**onitor app (shortened: vinprom) built with [ElectronJS](https://electronjs.org). ElectronJS is a cross-platform framework allowing the app to be built for each Windows, Mac or Linux. 
 
-The app is oriented for touch use.
+The app allows simple monitoring of realtime progress of the current playing video or audio track. The input in preview can also be to monitored in the HTML view.
 
 You are free to clone the repository to develop your own app based in this code.
 
@@ -22,7 +22,7 @@ See the [Releases](../../releases) tab for a direct download of the app for Mac 
 ## Feature summary
  - Read progress of current input in program
  - HTML view: View progress as a HTML page - Light or dark mode
- - vMix title mode: Send progress to a vMix title input
+ - vMix title mode: Send progress to a vMix title input of your choice
 
 ## Project architecture
 The project consists of several components. The app is built with Electron, meaning that the app can be compiled for Windows, Mac or Linux.
