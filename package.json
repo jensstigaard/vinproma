@@ -15,6 +15,7 @@
     "electron:serve": "vue-cli-service electron:serve",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps",
+    "web-assets-prod": "cd src/web-frontend && yarn prod",
     "web-assets-watch": "cd src/web-frontend && yarn watch"
   },
   "main": "background.js",
@@ -42,6 +43,7 @@
     "@types/cookie-parser": "^1.4.2",
     "@types/express": "^4.17.6",
     "@types/ip": "^1.1.0",
+    "@types/node": "12",
     "@types/ws": "^7.2.4",
     "@vue/cli-plugin-eslint": "^4.1.0",
     "@vue/cli-plugin-typescript": "^4.1.2",
