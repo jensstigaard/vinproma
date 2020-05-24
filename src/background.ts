@@ -26,7 +26,7 @@ function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({
     width: 860,
-    height: 380,
+    height: 430,
     webPreferences: {
       nodeIntegration: true
     }
@@ -150,7 +150,7 @@ if (isDevelopment) {
 // // @ts-ignore
 // Menu.setApplicationMenu(Menu.buildFromTemplate(template))
 
-let currentvMixData: string = ""
+let currentvMixData: string = ''
 
 // Upon new ws connection - send current vMix data
 wss.on('connection', (ws: WebSocket) => {
@@ -159,10 +159,12 @@ wss.on('connection', (ws: WebSocket) => {
     return
   }
 
-  ws.send(JSON.stringify({
-    type: 'input',
-    data: currentvMixData
-  }))
+  ws.send(
+    JSON.stringify({
+      type: 'input',
+      data: currentvMixData
+    })
+  )
 })
 
 ipcMain.on('vMixInfo', (event, data) => {
@@ -173,10 +175,12 @@ ipcMain.on('vMixInfo', (event, data) => {
   // Broadcast to all open ws clients
   wss.clients.forEach(function each(client) {
     if (client.readyState === WebSocket.OPEN) {
-      client.send(JSON.stringify({
-        type: 'input',
-        data
-      }))
+      client.send(
+        JSON.stringify({
+          type: 'input',
+          data
+        })
+      )
     }
   })
 })
