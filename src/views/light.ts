@@ -9,10 +9,11 @@ export default `
 </head>
 
 <body>
-	<div id="overview-links">
-		<a href="light">Light mode</a>
-		<a href="dark">Dark mode</a>
+	<div id="app">
+		<div></div>
 	</div>
+
+	<script src="/js/app.js"></script>
 </body>
 
 </html>

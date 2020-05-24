@@ -10,11 +10,10 @@ export default `
 </head>
 
 <body>
-	<body>
-		<div id="app">
-			<div></div>
-		</div>
-	</body>
+	<div id="app">
+		<div></div>
+	</div>
+
 	<script src="/js/app.js"></script>
 </body>
 

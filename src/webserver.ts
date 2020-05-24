@@ -8,8 +8,9 @@ import bodyParser from 'body-parser'
 import WebSocket from 'ws'
 
 
-import mainView from './views/main'
-import mainViewDark from './views/main-dark'
+import overviewView from './views/main'
+import lightView from './views/light'
+import darkView from './views/dark'
 
 const version = "1.0.0"
 const port = 8095
@@ -60,11 +61,15 @@ server.listen(port, () => {
 
 
 app.get('/', (_req: any, res: any) => {
-	return res.send(mainView)
+	return res.send(overviewView)
+})
+
+app.get('/light', (_req: any, res: any) => {
+	return res.send(lightView)
 })
 
 app.get('/dark', (_req: any, res: any) => {
-	return res.send(mainViewDark)
+	return res.send(darkView)
 })
 
 
@@ -101,6 +106,17 @@ if (app.get('env') === 'development') {
 		})
 	})
 }
+
+
+wss.on('connection', function connection(ws) {
+	ws.on('message', function incoming(data) {
+		// Ping request received
+		if (data === 'ping') {
+			// Return with sending a pong message
+			ws.send('pong')
+		}
+	})
+})
 
 // Export express app and web sockets server to allow
 // to tap into listeners and to send/broadcast messages
