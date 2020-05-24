@@ -32,10 +32,10 @@ export default {
   saveTitleModeSettings(
     state: any,
     data: {
-      enabled: boolean,
-      input: string,
-      textField: string,
-      widthField: string,
+      enabled: boolean
+      input: string
+      textField: string
+      widthField: string
       totalWidthForWidthField: number
     }
   ) {
