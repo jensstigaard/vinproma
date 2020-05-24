@@ -11,13 +11,10 @@
       v-container(fluid v-else)
         div(v-if="!tallyInfo") No inputs found somehow...
         div(v-else)
-          div
-            v-row
-              v-col
-                html-views
-              v-divider(vertical)
-              v-col
-                vmix-title-mode-settings(:titles="titles")
+          div: v-row
+            v-col: html-views
+            v-divider(vertical)
+            v-col: vmix-title-mode-settings(:titles="titles")
 </template>
 
 <script lang="ts">
