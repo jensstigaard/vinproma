@@ -1,5 +1,6 @@
 # vinprom
 
+[![vMix Input Progress Monitor](https://img.shields.io/github/downloads/jensstigaard/vinprom/total.svg)]()
 
 
 **v**Mix **In**put **Pro**gress **M**onitor app (shortened: vinprom) built with [ElectronJS](https://electronjs.org). ElectronJS is a cross-platform framework allowing the app to be built for each Windows, Mac or Linux. 
@@ -8,6 +9,8 @@ The app is oriented for touch use.
 
 You are free to clone the repository to develop your own app based in this code.
 
+
+![vMix Input Progress Monitor](./readme_assets/app-overview_010.png "Application overview")
 
 ## Downloads
 
