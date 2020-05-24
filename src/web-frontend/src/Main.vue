@@ -1,20 +1,21 @@
 <template lang="pug">
 div#app
-	div(v-if="!program") No data from vMix instance yet...
-	div(v-else).progress-bars
-		transition(name="fade")
-			div.preview(v-if="preview")
-				div.position-bar(:style="positionStyle(preview)")
-				div.text-overlays
-					div
-						span {{ preview.title }}
-						span &nbsp;&nbsp;&mdash;&nbsp;&nbsp;
-						span {{ positionText(preview) }} / {{ durationText(preview) }}
-		div.program
-			div.position-bar(:style="positionStyle(program)")
-			div.text-overlays
-				div.duration {{ positionText(program) }} / {{ durationText(program) }}
-				div.title {{ program.title }}
+  div(v-if="connectionLost" style="padding: 10px; text-align: center") Connection lost... Try to refresh...
+  div(v-else-if="!program") No data from vMix instance yet...
+  div(v-else).progress-bars
+    transition(name="fade")
+      div.preview(v-if="preview")
+        div.position-bar(:style="positionStyle(preview)")
+        div.text-overlays
+          div
+            span {{ preview.title }}
+            span &nbsp;&nbsp;&mdash;&nbsp;&nbsp;
+            span {{ positionText(preview) }} / {{ durationText(preview) }}
+    div.program
+      div.position-bar(:style="positionStyle(program)")
+      div.text-overlays
+        div.duration {{ positionText(program) }} / {{ durationText(program) }}
+        div.title {{ program.title }}
 </template>
 
 <script>
@@ -27,19 +28,32 @@ function durationNice(duration) {
   return `${minutes}:${seconds}`
 }
 
+const PING_FREQUENCY = 10000 // Ping each 10th second
+const PING_ANSWER_THRESHOLD = 25000 // Pong threshold 25 sec - otherwise interpreted as lost connection
+
 export default {
   data() {
     return {
       program: null,
-      preview: null
+      preview: null,
+
+      socketPingInterval: null,
+      latestPing: new Date(),
+      latestPong: new Date()
     }
   },
 
   created() {
     this.$options.sockets.onmessage = message => {
+      // Guard message...
       if (typeof message !== 'object' || !message.data) {
         console.error('Message did not have data attribute...', typeof message)
         console.error(message)
+        return
+      }
+
+      if (message.data === 'pong') {
+        this.latestPong = new Date()
         return
       }
 
@@ -67,6 +81,28 @@ export default {
         console.error('Failed to parse data to JSON')
         console.error('Data', message.data)
       }
+    }
+
+    this.$options.sockets.onerror = message => {
+      console.error('Error for socket', message)
+    }
+
+    this.socketPingInterval = setInterval(() => {
+      this.$socket.send('ping')
+      this.latestPing = new Date()
+    }, PING_FREQUENCY)
+
+    // On socket closing clear interval
+    this.$socket.onclose = function clear() {
+      clearInterval(this.socketPingInterval)
+    }
+  },
+
+  computed: {
+    connectionLost() {
+      const diff = this.latestPing - this.latestPong
+      // console.log(diff)
+      return diff > PING_ANSWER_THRESHOLD
     }
   },
 
