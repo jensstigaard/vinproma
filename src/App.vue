@@ -14,27 +14,21 @@
           div
             v-row
               v-col
-                h3 HTML view
-                v-btn(block @click="htmlLightMode").my-1
-                  span Light mode: 
-                  small {{ htmlLightModeAddress }}
-                v-btn(block @click="htmlDarkMode").my-1
-                  span Dark mode: 
-                  small {{ htmlDarkModeAddress }}
+                html-views
               v-divider(vertical)
               v-col
                 vmix-title-mode-settings(:titles="titles")
 </template>
 
 <script lang="ts">
-import { ipcRenderer, shell } from 'electron'
-import ip from 'ip'
+import { ipcRenderer } from 'electron'
 import { Vue, Component, Watch } from 'vue-property-decorator'
 
 import { XmlInputMapper, XmlApiDataParser } from 'vmix-js-utils'
 import { TallySummary } from 'vmix-js-utils/dist/types/tcp'
 
 import AppBar from './AppBar.vue'
+import HtmlViews from './HtmlViews.vue'
 import VmixTitleModeSettings from './TitleModeSettings.vue'
 import { durationNice } from './utility/time'
 // import PreviewRow from './PreviewRow.vue'
@@ -48,7 +42,8 @@ const sleep = (m: number) => new Promise(r => setTimeout(r, m))
 @Component({
   components: {
     AppBar,
-    VmixTitleModeSettings
+    VmixTitleModeSettings,
+    HtmlViews
     // PreviewRow
   }
 })
@@ -205,24 +200,6 @@ export default class App extends Vue {
     this.lastSentData = message
 
     ipcRenderer.send('vMixInfo', message)
-  }
-
-  get htmlLightModeAddress() {
-    return `http://${ip.address()}:8095`
-  }
-
-  get htmlDarkModeAddress() {
-    return `http://${ip.address()}:8095/dark`
-  }
-
-  htmlLightMode() {
-    // Open url
-    shell.openExternal(this.htmlLightModeAddress)
-  }
-
-  htmlDarkMode() {
-    // Open url
-    shell.openExternal(this.htmlDarkModeAddress)
   }
 }
 </script>
