@@ -9,7 +9,6 @@ div(style="margin-top: -30px")
 			:disabled="insufficientFormData"
 		)
 	div
-		h5 Settings
 		v-alert(v-if="!titles.length" color="warning") No title inputs (GT or Xaml) found in vMix instance...
 		div(v-else)
 			// Select title
