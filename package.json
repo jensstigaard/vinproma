@@ -14,7 +14,8 @@
     "electron:build": "vue-cli-service electron:build",
     "electron:serve": "vue-cli-service electron:serve",
     "postinstall": "electron-builder install-app-deps",
-    "postuninstall": "electron-builder install-app-deps"
+    "postuninstall": "electron-builder install-app-deps",
+    "web-assets-watch": "cd src/web-frontend && yarn watch"
   },
   "main": "background.js",
   "dependencies": {
@@ -27,7 +28,7 @@
     "jade": "^1.11.0",
     "node-vmix": "^1.2.0",
     "pug": "^2.0.4",
-    "vmix-js-utils": "^3.4.0",
+    "vmix-js-utils": "^3.8.1",
     "vue": "^2.6.10",
     "vue-class-component": "^7.0.2",
     "vue-directive-long-press": "^1.1.0",
