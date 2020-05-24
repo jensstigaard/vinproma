@@ -9,9 +9,10 @@ export default `
 </head>
 
 <body>
-	<div id="overview-links">
-		<a href="light">Light mode</a>
-		<a href="dark">Dark mode</a>
+<div id="overview-links">
+	<div>View HTML mode</div>
+	<a href="light">Light mode</a>
+	<a href="dark">Dark mode</a>
 	</div>
 </body>
 
