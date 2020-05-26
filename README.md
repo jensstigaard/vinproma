@@ -1,19 +1,19 @@
-# vinprom
+# vinproma
 
-[![vMix Input Progress Monitor](https://img.shields.io/github/downloads/jensstigaard/vinprom/total.svg)]()
+[![vMix Input Progress Monitor App](https://img.shields.io/github/downloads/jensstigaard/vinprom/total.svg)]()
 
 
-**v**Mix **In**put **Pro**gress **M**onitor app (shortened: vinprom) built with [ElectronJS](https://electronjs.org). ElectronJS is a cross-platform framework allowing the app to be built for each Windows, Mac or Linux. 
+**v**Mix **In**put **Pro**gress **M**onitor **A**pp (shortened: vinprom) built with [ElectronJS](https://electronjs.org). ElectronJS is a cross-platform framework allowing the app to be built for each Windows, Mac or Linux. 
 
 The app allows simple monitoring of realtime progress of the current playing video or audio track. The input in preview can also be to monitored in the HTML view.
 
 You are free to clone the repository to develop your own app based in this code.
 
 ## App overview
-![vMix Input Progress Monitor](./readme_assets/app-overview_010.png "Application overview")
+![vMix Input Progress Monitor App](./readme_assets/app-overview_010.png "Application overview")
 
 ## HTML view
-![vMix Input Progress Monitor HTML view](./readme_assets/html-view.png "HTML view")
+![vMix Input Progress Monitor App - HTML view](./readme_assets/html-view.png "HTML view")
 
 ## Downloads
 
