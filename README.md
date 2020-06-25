@@ -26,9 +26,13 @@ See the [Releases](../../releases) tab for a direct download of the app for Mac 
 
 ## Project architecture
 The project consists of several components. The app is built with Electron, meaning that the app can be compiled for Windows, Mac or Linux.
+
 The Electron frontend (also called "Renderer") serves the purpose of fetching info from a vMix instance, and letting the user see the state of the vMix instance connection and other settings. 
+
 A web server lives on the backend side of the Electron app, serving requests from the users on port 8095. The web server includes a web socket server, serving flowing real time TCP/IP data to the connected clients/browsers.
-The web server communicates with the Electron frontend app, where practically realtime data from the vMix instances is passed as follwing: 
+
+The web server communicates with the Electron frontend app, where practically realtime data from the vMix instances is passed as following:
+
 Electron renderer -> (via IPC) -> Electron backend -> Web server -> (via Web Socket) -> Web clients
 
 ## Known issues
