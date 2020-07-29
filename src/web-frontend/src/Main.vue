@@ -9,12 +9,20 @@ div#app
         div.text-overlays
           div
             span {{ preview.title }}
-            span &nbsp;&nbsp;&mdash;&nbsp;&nbsp;
-            span {{ positionText(preview) }} / {{ durationText(preview) }} / {{ remainingText(preview) }}
+            span(style="display: inline-block; padding: 0 10px") &mdash;
+            span 
+              | {{ positionText(preview) }}
+              | / {{ durationText(preview) }}
+              | / 
+              span(:style="remainingWarning(preview)?'font-weight:bold':''") {{ remainingText(preview) }}
     div.program
       div.position-bar(:style="positionStyle(program)")
       div.text-overlays
-        div.duration {{ positionText(program) }} / {{ durationText(program) }} / {{ remainingText(program) }}
+        div.duration
+          | {{ positionText(program) }}
+          | / {{ durationText(program) }}
+          | / 
+          span(:style="remainingWarning(program)?'font-weight:bold':''") {{ remainingText(program) }}
         div.title {{ program.title }}
 </template>
 
@@ -63,20 +71,17 @@ export default {
         // console.log('message from socket')
         // console.log(content)
 
-        switch (content.type) {
-          case 'input':
-            const data = JSON.parse(content.data)
+        if (content.type === 'input') {
+          const data = JSON.parse(content.data)
 
-            if (data.program) {
-              this.$set(this, 'program', data.program)
-            }
-            // if (data.preview) {
-            this.$set(this, 'preview', data.preview || null)
-            // }
-            break
-          default:
-            console.error('Unknown DATA', content)
-            break
+          if (data.program) {
+            this.$set(this, 'program', data.program)
+          }
+          // if (data.preview) {
+          this.$set(this, 'preview', data.preview || null)
+          // }
+        } else {
+          console.error('Unknown DATA', content)
         }
       } catch (e) {
         console.error('Failed to parse data to JSON')
@@ -117,7 +122,7 @@ export default {
     },
 
     remainingText(input) {
-      const diffMs = input.position - input.duration
+      const diffMs = input.duration - input.position
       return durationNice(Math.floor(diffMs / 1000))
     },
 
@@ -125,17 +130,24 @@ export default {
       return (input.position / input.duration) * 100
     },
 
+    remainingWarning(input) {
+      // Remaining time in milliseconds
+      const remainingTime = input.duration - input.position
+
+      // If longer than 120 seconds then threshold is 10 sec - otherwise 5 seconds
+      const warningThreshold = input.duration > 120 * 1000 ? 10000 : 5000
+
+      return remainingTime <= warningThreshold
+    },
+
     positionStyle(input) {
       const p = this.positionPercentage(input)
       const percentage = p < 2 ? 0 : p
 
-      const remainingTime = (input.duration - input.position) / 1000 // In seconds (with fractions)
-      const warningThreshold = input.duration > 120 ? 10 : 5 // If longer than 120 seconds then threshold is 10 sec
-
       const background =
         input.state !== 'Running' // Paused?
           ? 'rgba(100, 150, 255, 0.8)' // Show blue-ish color
-          : remainingTime < warningThreshold // Below "warning" threshold?
+          : this.remainingWarning(input) // Below "warning" threshold?
           ? 'rgba(255, 100, 100, 0.8)' // Show red (warning color)
           : 'rgba(100, 200, 100, 0.8)' // Otherwise green
 
