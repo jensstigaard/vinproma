@@ -10,15 +10,16 @@ div#app
           div
             span {{ preview.title }}
             span &nbsp;&nbsp;&mdash;&nbsp;&nbsp;
-            span {{ positionText(preview) }} / {{ durationText(preview) }}
+            span {{ positionText(preview) }} / {{ durationText(preview) }} / {{ remainingText(preview) }}
     div.program
       div.position-bar(:style="positionStyle(program)")
       div.text-overlays
-        div.duration {{ positionText(program) }} / {{ durationText(program) }}
+        div.duration {{ positionText(program) }} / {{ durationText(program) }} / {{ remainingText(program) }}
         div.title {{ program.title }}
 </template>
 
 <script>
+// Helper to nicely present durations as readable text
 function durationNice(duration) {
   const minutes = Math.floor(duration / 60)
 
@@ -115,6 +116,11 @@ export default {
       return durationNice(Math.floor(input.duration / 1000))
     },
 
+    remainingText(input) {
+      const diffMs = input.position - input.duration
+      return durationNice(Math.floor(diffMs / 1000))
+    },
+
     positionPercentage(input) {
       return (input.position / input.duration) * 100
     },
@@ -123,14 +129,14 @@ export default {
       const p = this.positionPercentage(input)
       const percentage = p < 2 ? 0 : p
 
-      const leftOfInput = input.duration - input.position
-      const threshold = input.duration > 120 * 1000 ? 10000 : 5000
+      const remainingTime = (input.duration - input.position) / 1000 // In seconds (with fractions)
+      const warningThreshold = input.duration > 120 ? 10 : 5 // If longer than 120 seconds then threshold is 10 sec
 
       const background =
         input.state !== 'Running' // Paused?
           ? 'rgba(100, 150, 255, 0.8)' // Show blue-ish color
-          : leftOfInput < threshold // Below threshold?
-          ? 'rgba(255, 100, 100, 0.8)' // Show red
+          : remainingTime < warningThreshold // Below "warning" threshold?
+          ? 'rgba(255, 100, 100, 0.8)' // Show red (warning color)
           : 'rgba(100, 200, 100, 0.8)' // Otherwise green
 
       return {
