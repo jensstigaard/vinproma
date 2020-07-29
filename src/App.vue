@@ -2,7 +2,7 @@
   v-app
     app-bar
 
-    v-content
+    v-main
       v-container(v-if="!$vMixConnection.connected")
         div.text-center
           v-icon(color="orange") fa-exclamation-circle
