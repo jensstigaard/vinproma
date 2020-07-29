@@ -1,11 +1,16 @@
 {
-  "name": "vinprom",
+  "name": "vinproma",
   "productName": "vMix Input Progress Monitor",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": false,
   "author": {
     "name": "Jens Grønhøj Stigaard",
     "email": "jens@stigaard.info"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jensstigaard/vinproma.git"
   },
   "scripts": {
     "serve": "vue-cli-service serve",
