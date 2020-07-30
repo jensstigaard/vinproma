@@ -33,7 +33,7 @@ A web server lives on the backend side of the Electron app, serving requests fro
 
 The web server communicates with the Electron frontend app, where practically realtime data from the vMix instances is passed as following:
 
-Electron renderer -> (via IPC) -> Electron backend -> Web server -> (via Web Socket) -> Web clients
+Electron renderer process &#8594; (via IPC) &#8594; Electron main process &#8594; Web server &#8594; (via Web Socket) &#8594; Web clients
 
 ## Known issues
 When running in development mode you can experience loss of connection to the vMix instance after some minutes.
