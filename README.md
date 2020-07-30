@@ -38,6 +38,11 @@ Electron renderer -> (via IPC) -> Electron backend -> Web server -> (via Web Soc
 ## Known issues
 When running in development mode you can experience loss of connection to the vMix instance after some minutes.
 
+## Roadmap
+
+ [] Add XAML template
+
+
 ## Project setup
 ### Install dependencies (based on package.json)
 ```
@@ -75,6 +80,10 @@ yarn watch
 There is also a alias for this in the main package.json:
 ```
 yarn web-assets-watch
+```
+And also before building the Electron app, a command to build web frontend assets for production can be run:
+```
+yarn web-assets-prod
 ```
 
 ### Customize configuration
