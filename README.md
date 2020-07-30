@@ -40,7 +40,7 @@ When running in development mode you can experience loss of connection to the vM
 
 ## Roadmap
 
- [] Add XAML template
+ - [ ] Add XAML template
 
 
 ## Project setup
