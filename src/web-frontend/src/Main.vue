@@ -1,7 +1,9 @@
 <template lang="pug">
 div#app
-  div(v-if="connectionLost" style="padding: 10px; text-align: center") Connection lost... Try to refresh...
-  div(v-else-if="!program") No data from vMix instance yet...
+  div(v-if="connectionLost" style="padding: 10px; text-align: center") 
+    | Connection lost... Try to refresh...
+  div(v-else-if="!program").text-center.px-4.py-3 
+    | Connected to vMix instance - but no data received yet... Waiting in patience!
   div(v-else).progress-bars
     transition(name="fade")
       div.preview(v-if="preview")
@@ -14,7 +16,8 @@ div#app
               | {{ positionText(preview) }}
               | / {{ durationText(preview) }}
               | / 
-              span(:style="remainingWarning(preview)?'font-weight:bold':''") {{ remainingText(preview) }}
+              span(:style="remainingWarning(preview)?'font-weight:bold':''")
+                | {{ remainingText(preview) }}
     div.program
       div.position-bar(:style="positionStyle(program)")
       div.text-overlays
