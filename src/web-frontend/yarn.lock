@@ -3778,7 +3778,7 @@ laravel-mix-tailwind@^0.1.0:
   resolved "https://registry.yarnpkg.com/laravel-mix-tailwind/-/laravel-mix-tailwind-0.1.0.tgz#5dee3cb7a85aef6354912982a31ba387997e3289"
   integrity sha512-thy+4VSAHeB6sCmozO+Oley3bu7q5pRarxyXVI3EPI+rKRRSbzZI5JlI++R/oQilVhi4xu+iJlMSFb31Rgwr8w==
 
-laravel-mix@^2.1.11:
+laravel-mix@^2.1.14:
   version "2.1.14"
   resolved "https://registry.yarnpkg.com/laravel-mix/-/laravel-mix-2.1.14.tgz#5c3c778b888e21120aa9d8900c318411da2ec911"
   integrity sha512-M/Vzgr6+QQGukciAQ91SZvOhUyrPm41bq/nRyF2j2HR8/g3vzvTQbRkdTGOpq9Z+y3REEj8qR2A3ScnEG37Dgw==
