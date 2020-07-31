@@ -14,11 +14,12 @@ div(style="margin-top: -30px")
 		v-col: v-checkbox(
 			v-model="settings.enabled"
 			label="Enabled"
-			:disabled="insufficientFormData"
+			:disabled="!settings.enabled && validFormData"
 		)
 
 	div
-		v-alert(v-if="!titles.length" color="warning") No title inputs (GT or Xaml) found in vMix instance...
+		div(v-if="!titles.length")
+			v-alert(v-show="settings.enabled" type="warning" outlined) No title inputs (GT or Xaml) found in vMix instance...
 		div(v-else)
 			// Select title
 			v-select(
@@ -26,10 +27,18 @@ div(style="margin-top: -30px")
 				v-model="settings.input"
 				label="Title"
 				:items="titles"
-				item-text="title"
+				item-text="nice"
 				item-value="key"
 			)
 			div(v-show="settings.input")
+				// Select text field
+				v-select(
+					v-model="settings.textField"
+					label="Text field"
+					:items="fieldsAvailable('textField')"
+					item-text="nice"
+					item-value="name"
+				)
 				// Select text field
 				v-select(
 					v-model="settings.textField"
@@ -49,6 +58,7 @@ div(style="margin-top: -30px")
 				)
 				// Total width for Width field
 				v-text-field(
+					v-if="settings.widthField"
 					dense
 					v-model="settings.totalWidthForWidthField"
 					label="Total width for Width field"
@@ -74,19 +84,29 @@ export default class titleModeSettings extends Vue {
   onSettingsChanged(val: any, oldval: any) {
     console.log('Title mode Settings changed', val)
 
+    if (!this.validFormData) {
+      return
+    }
+
     // Save to store
     this.$store.dispatch('saveTitleModeSettings', val)
   }
 
-  get insufficientFormData() {
-    // Check for Insufficient form data
+  get validFormData() {
+    // Check for valid form data
+
+    // input must be selected
+    if (!this.settings.input) {
+      return false
+    }
+
     return (
-      // No input selected
-      !this.settings.input ||
       // No fields selected at all
-      (!this.settings.textField && !this.settings.widthField) ||
-      // Same WidthField as TextField
-      this.settings.widthField === this.settings.textField
+      !(this.settings.textField && this.settings.widthField) &&
+      // WidthField cannot be same field as TextField
+      this.settings.widthField !== this.settings.textField &&
+      // When hvaing width field selected total width should also be defined
+      (!this.settings.widthField || this.settings.totalWidthForWidthField)
     )
   }
 
