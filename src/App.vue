@@ -24,13 +24,14 @@ import { Vue, Component, Watch } from 'vue-property-decorator'
 import { XmlInputMapper, XmlApiDataParser } from 'vmix-js-utils'
 import { TallySummary } from 'vmix-js-utils/dist/types/tcp'
 
+import { durationNice } from './utility/time'
+
 import AppBar from './AppBar.vue'
 import HtmlViews from './HtmlViews.vue'
 import VmixTitleModeSettings from './TitleModeSettings.vue'
-import { durationNice } from './utility/time'
 // import PreviewRow from './PreviewRow.vue'
 
-const FETCH_XML_DATA_INTERVAL: number = 1000 // ms
+const FETCH_XML_DATA_INTERVAL: number = 200 // ms
 
 const sleep = (m: number) => new Promise(r => setTimeout(r, m))
 
@@ -112,7 +113,15 @@ export default class App extends Vue {
         ])
       ) as any[]
 
-      this.titles = inputs.filter((input: { type: string }) => ['GT', 'Xaml'].includes(input.type))
+      // console.log('Total inputs', inputs.length)
+
+      this.titles = inputs
+        .map((input: { [key: string]: any }, index: number) => {
+          input.number = index + 1
+          input.nice = `${input.number} - ${input.title}`
+          return input
+        })
+        .filter((input: { [key: string]: any }) => ['GT', 'Xaml'].includes(input.type))
 
       if (!this.tallyInfo) {
         return
@@ -132,6 +141,7 @@ export default class App extends Vue {
           ? inputs[tallyInfo.preview[0] - 1]
           : null
 
+      // Is title mode enabled then send info back to vMix
       const titleMode = this.$store.state.titleMode
       if (titleMode.enabled) {
         const inputKey = titleMode.input
@@ -139,28 +149,34 @@ export default class App extends Vue {
         // Text field
         if (titleMode.textField) {
           const pos = durationNice(Math.floor(this.programInput.position / 1000))
-          const dur = durationNice(Math.floor(this.programInput.duration / 1000))
+          const duration = durationNice(Math.floor(this.programInput.duration / 1000))
+          const remaining = durationNice(
+            Math.ceil((this.programInput.duration - this.programInput.position) / 1000)
+          )
 
           // @ts-ignore
           this.$vMixConnection!.send({
             Function: 'SetText',
             Input: inputKey,
             SelectedName: titleMode.textField,
-            Value: `${pos} / ${dur}`
+            Value: `${pos} / ${duration} / ${remaining}`
           })
         }
 
-        // Width field
+        // Width field stating program progress
         if (titleMode.widthField) {
+          // Calculate current width
+          const progressPercentage = this.programInput.position / this.programInput.duration
+
+          const calculatedCurrentWidth: number =
+            (titleMode.totalWidthForWidthField * Math.round(progressPercentage * 100)) / 100
+
           // @ts-ignore
           this.$vMixConnection!.send({
             Function: 'SetText',
             Input: inputKey,
             SelectedName: titleMode.widthField,
-            Value:
-              (titleMode.totalWidthForWidthField *
-                Math.round((this.programInput.position / this.programInput.duration) * 100)) /
-              100
+            Value: calculatedCurrentWidth
           })
         }
       }
