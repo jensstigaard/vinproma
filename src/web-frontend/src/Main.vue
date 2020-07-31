@@ -123,7 +123,7 @@ export default {
 
     remainingText(input) {
       const diffMs = input.duration - input.position
-      return durationNice(Math.floor(diffMs / 1000))
+      return durationNice(Math.ceil(diffMs / 1000))
     },
 
     positionPercentage(input) {
