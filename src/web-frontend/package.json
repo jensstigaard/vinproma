@@ -19,6 +19,7 @@
     "pug": "^2.0.4",
     "tailwindcss": "^0.7.4",
     "vue": "^2.6.11",
+    "vue-circle-counter": "^3.0.0",
     "vue-native-websocket": "^2.0.14",
     "vue-timeago": "^3.1.5"
   },

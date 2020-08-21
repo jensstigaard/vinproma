@@ -89,27 +89,28 @@ a
 	text-align: center
 	margin-top: 20px
 
-	a
-		display: inline-block
-		width: 40%
-		height: 150px
+	> div
+		a
+			display: inline-block
+			width: 40%
+			height: 150px
 
-		padding: 50px
+			padding: 50px
 
-		font-size: 30pt
-		text-align: center
+			font-size: 30pt
+			text-align: center
 
-		border: 1px solid #CCC
-		background: #EEE
+			border: 1px solid #CCC
+			background: #EEE
 
-		color: #333
+			color: #333
 
-		&:nth-child(3)
-			background: #222
-			color: #EEE
+			&:nth-child(2)
+				background: #222
+				color: #EEE
 
 #app
-	.progress-bars
+	.linear-progress-bars
 		position: absolute
 		
 		bottom: 2%
@@ -164,6 +165,12 @@ a
 				
 				transition: width ease 0.7s, background ease 0.3s
 
+	.circular-progress-bars
+		margin: 20px
+		text-shadow: 2px 2px 4px rgba(0,0,0,0.5)
+
+		.title
+			font-size: 18pt
 
 .fade-enter-active, .fade-leave-active
 	transition: opacity .3s

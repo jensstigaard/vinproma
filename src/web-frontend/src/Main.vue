@@ -4,51 +4,40 @@ div#app
     | Connection lost... Try to refresh...
   div(v-else-if="!program").text-center.px-4.py-3 
     | Connected to vMix instance - but no data received yet... Waiting in patience!
-  div(v-else).progress-bars
-    transition(name="fade")
-      div.preview(v-if="preview")
-        div.position-bar(:style="positionStyle(preview)")
-        div.text-overlays
-          div
-            span {{ preview.title }}
-            span(style="display: inline-block; padding: 0 10px") &mdash;
-            span 
-              | {{ positionText(preview) }}
-              | / {{ durationText(preview) }}
-              | / 
-              span(:style="remainingWarning(preview)?'font-weight:bold':''")
-                | {{ remainingText(preview) }}
-    div.program
-      div.position-bar(:style="positionStyle(program)")
-      div.text-overlays
-        div.duration
-          | {{ positionText(program) }}
-          | / {{ durationText(program) }}
-          | / 
-          span(:style="remainingWarning(program)?'font-weight:bold':''") {{ remainingText(program) }}
-        div.title {{ program.title }}
+  div(v-else)
+    component(
+      v-bind:is="presentationType"
+      :program="program"
+      :preview="preview"
+    )
 </template>
 
 <script>
-// Helper to nicely present durations as readable text
-function durationNice(duration) {
-  const minutes = Math.floor(duration / 60)
+import baseMixin from './mixin'
 
-  const sec = duration % 60
-  const seconds = `${sec < 10 ? '0' : ''}${sec}`
-
-  return `${minutes}:${seconds}`
-}
+import Circular from './Circular'
+import Linear from './Linear'
 
 const PING_FREQUENCY = 10000 // Ping each 10th second
 const PING_ANSWER_THRESHOLD = 25000 // Pong threshold 25 sec - otherwise interpreted as lost connection
 
 export default {
+  mixins: [baseMixin],
+  components: {
+    Linear,
+    Circular
+  },
+
   data() {
     return {
+      // Read what presenation type it should be based of location pathname
+      presentationType: location.pathname === '/circular' ? 'circular' : 'linear',
+
+      // Program and preview data from vMix
       program: null,
       preview: null,
 
+      // Socket details
       socketPingInterval: null,
       latestPing: new Date(),
       latestPong: new Date()
@@ -112,52 +101,6 @@ export default {
       const diff = this.latestPing - this.latestPong
       // console.log(diff)
       return diff > PING_ANSWER_THRESHOLD
-    }
-  },
-
-  methods: {
-    positionText(input) {
-      return durationNice(Math.floor(input.position / 1000))
-    },
-
-    durationText(input) {
-      return durationNice(Math.floor(input.duration / 1000))
-    },
-
-    remainingText(input) {
-      const diffMs = input.duration - input.position
-      return durationNice(Math.ceil(diffMs / 1000))
-    },
-
-    positionPercentage(input) {
-      return (input.position / input.duration) * 100
-    },
-
-    remainingWarning(input) {
-      // Remaining time in milliseconds
-      const remainingTime = input.duration - input.position
-
-      // If longer than 120 seconds then threshold is 10 sec - otherwise 5 seconds
-      const warningThreshold = input.duration > 120 * 1000 ? 10000 : 5000
-
-      return remainingTime <= warningThreshold
-    },
-
-    positionStyle(input) {
-      const p = this.positionPercentage(input)
-      const percentage = p < 2 ? 0 : p
-
-      const background =
-        input.state !== 'Running' // Paused?
-          ? 'rgba(100, 150, 255, 0.8)' // Show blue-ish color
-          : this.remainingWarning(input) // Below "warning" threshold?
-          ? 'rgba(255, 100, 100, 0.8)' // Show red (warning color)
-          : 'rgba(100, 200, 100, 0.8)' // Otherwise green
-
-      return {
-        width: `${percentage}%`,
-        background
-      }
     }
   }
 }

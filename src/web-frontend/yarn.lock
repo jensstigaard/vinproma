@@ -7027,6 +7027,13 @@ void-elements@^2.0.1:
   resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-2.0.1.tgz#c066afb582bb1cb4128d60ea92392e94d5e9dbec"
   integrity sha1-wGavtYK7HLQSjWDqkjkulNXp2+w=
 
+vue-circle-counter@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/vue-circle-counter/-/vue-circle-counter-3.0.0.tgz#e2b6ab04199f10217cc376b857cffb4dd29a4c3c"
+  integrity sha512-dh7jwkkJYcDZXvmiXHXDuDdUgDQHMxnI9MsEJE2aNxrUEC+gAdsfIbQw9BDjYcShCB6m/rxQZM22gTVKMXWBtw==
+  dependencies:
+    vue "^2.5.21"
+
 vue-hot-reload-api@^2.2.0:
   version "2.3.4"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.4.tgz#532955cc1eb208a3d990b3a9f9a70574657e08f2"
@@ -7081,6 +7088,11 @@ vue-timeago@^3.1.5:
   version "3.4.4"
   resolved "https://registry.yarnpkg.com/vue-timeago/-/vue-timeago-3.4.4.tgz#a878c9ba5840816939a89659451902f84ebdf23f"
   integrity sha512-8V93SP2XXWLThysx8F1rSMyKuEevDll0sA5tg8AxtmgDTuKR7XKug8OVVdYoZXpynZqHK9u93LXPwCmVhVaJvQ==
+
+vue@^2.5.21:
+  version "2.6.12"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.12.tgz#f5ebd4fa6bd2869403e29a896aed4904456c9123"
+  integrity sha512-uhmLFETqPPNyuLLbsKz6ioJ4q7AZHzD8ZVFNATNyICSZouqP2Sz0rotWQC8UNBF6VGSCs5abnKJoStA6JbCbfg==
 
 vue@^2.6.11:
   version "2.6.11"
