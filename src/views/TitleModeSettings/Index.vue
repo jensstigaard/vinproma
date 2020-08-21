@@ -131,7 +131,7 @@ export default class TitleModeSettingsIndex extends Vue {
       return
     }
 
-    console.log('Title mode Settings changed', val)
+    // console.log('Title mode Settings changed', val)
 
     // Save to store
     this.$store.dispatch('saveTitleModeSettings', val)

@@ -84,7 +84,7 @@ export default class App extends Vue {
   onConnectedChanged(val: boolean, oldval: boolean) {
     const isConnected = val
 
-    console.log('Connected changed', isConnected)
+    // console.log('Connected changed', isConnected)
 
     // If not connected anymore - do not attempt to send requests for XML data
     if (!isConnected) {
@@ -178,10 +178,10 @@ export default class App extends Vue {
   }
 
   @Watch('$store.state.vMixConnection.host')
-  onHostChanged(val: string, oldval: string) {
-    const newHost = val
+  onHostChanged(newVal: string, oldval: string) {
+    const newHost = newVal
     // @ts-ignore
-    this.setVmixConnection(newHost, { debug: false })
+    this.$vMixConnection.setConnection(newHost, { debug: false })
   }
 
   async sendUpdatedData() {

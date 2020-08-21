@@ -48,14 +48,14 @@ app.use(cookieParser())
 
 // Public files folder
 const staticFilesPath = paths.getResourcePath('web-frontend/dist/public')
-console.log(staticFilesPath)
+// console.log(staticFilesPath)
 app.use(express.static(staticFilesPath))
 
 // Web server - listen for HTTP request on port
 server.listen(port, () => {
-  console.log('\n')
-  console.log('\t', 'Open http://localhost:' + port + ' in a browser to connect')
-  console.log('\n')
+  // console.log('\n')
+  // console.log('\t', 'Open http://localhost:' + port + ' in a browser to connect')
+  // console.log('\n')
 })
 
 app.get('/', (_req: any, res: any) => {
@@ -64,7 +64,7 @@ app.get('/', (_req: any, res: any) => {
 
 app.get('/linear', (req: any, res: any) => {
   const theme = req.query.theme && req.query.theme === 'dark' ? 'dark' : 'light'
-  console.log('Theme', theme)
+  // console.log('Theme', theme)
   return res.send(htmlView('linear', theme))
 })
 
