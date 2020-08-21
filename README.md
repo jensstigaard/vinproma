@@ -21,8 +21,12 @@ See the [Releases](../../releases) tab for a direct download of the app for Mac 
 
 ## Feature summary
  - Read progress of current input in program
- - HTML view: View progress as a HTML page - Light or dark mode
+ - HTML view: View progress as a HTML page
+   - Linear progress or circular
+   - Light or dark mode
  - vMix title mode: Send progress to a vMix title input of your choice
+  - Multiple types of data to send
+  - Ability to setup multiple "destinations"
 
 ## Project architecture
 The project consists of several components. The app is built with Electron, meaning that the app can be compiled for Windows, Mac or Linux.
