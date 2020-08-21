@@ -9,18 +9,6 @@ The app allows simple monitoring of realtime progress of the current playing vid
 
 You are free to clone the repository to develop your own app based in this code.
 
-## App overview
-![vMix Input Progress Monitor App](./readme_assets/app-overview_041.png "Application overview")
-
-## HTML view (Linear or circular)
-![vMix Input Progress Monitor App - HTML view Linear](./readme_assets/html-view-linear.png "HTML view linear")
-
-![vMix Input Progress Monitor App - HTML view Circular](./readme_assets/html-view-circular.png "HTML view circular")
-
-## Downloads
-
-See the [Releases](../../releases) tab for a direct download of the app for Mac and Windows.
-
 ## Feature summary
  - Read progress of current input in program
  - HTML view: View progress as a HTML page
@@ -30,6 +18,20 @@ See the [Releases](../../releases) tab for a direct download of the app for Mac 
    - Multiple types of data to send
    - Ability to setup multiple "destinations"
  - Ability to enable Delay compensation
+
+## Downloads
+
+See the [Releases](../../releases) tab for a direct download of the app for Mac and Windows.
+
+
+## App overview
+![vMix Input Progress Monitor App](./readme_assets/app-overview_041.png "Application overview")
+
+## HTML view (Linear or circular)
+![vMix Input Progress Monitor App - HTML view Linear](./readme_assets/html-view-linear.png "HTML view linear")
+
+![vMix Input Progress Monitor App - HTML view Circular](./readme_assets/html-view-circular.png "HTML view circular")
+
 
 ## Project architecture
 The project consists of several components. The app is built with Electron, meaning that the app can be compiled for Windows, Mac or Linux.
