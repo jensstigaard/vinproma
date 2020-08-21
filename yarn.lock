@@ -9441,10 +9441,10 @@ vue-template-es2015-compiler@^1.9.0:
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
 
-vue-vmix-conn-plugin@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/vue-vmix-conn-plugin/-/vue-vmix-conn-plugin-1.0.1.tgz#99245dafc132e5eeb96c8ea050d80ea8f7fbed3e"
-  integrity sha512-nBIHLHkaEmZiWSZL37OLtqIl9xnoihkTnF3LHbjfsLX9b+Bbi3jncQuKGwXuYokwmnwwJitTYEBNHE/ccBUlog==
+vue-vmix-conn-plugin@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/vue-vmix-conn-plugin/-/vue-vmix-conn-plugin-1.0.2.tgz#18f018c1e2fd8c68a6c3a4cd570921beb3c626b4"
+  integrity sha512-fNJL9uqkPCUME0/VZG6Vtlj9BRXb6bgIGyYpp4qZp2hdU8etcodNmG/t+qURHLhzpH905DRuMtBRUI/KlX8dHQ==
   dependencies:
     node-vmix "^1.2.2"
     vue "^2.6.11"
