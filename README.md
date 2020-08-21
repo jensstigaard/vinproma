@@ -10,10 +10,12 @@ The app allows simple monitoring of realtime progress of the current playing vid
 You are free to clone the repository to develop your own app based in this code.
 
 ## App overview
-![vMix Input Progress Monitor App](./readme_assets/app-overview_010.png "Application overview")
+![vMix Input Progress Monitor App](./readme_assets/app-overview_041.png "Application overview")
 
-## HTML view
-![vMix Input Progress Monitor App - HTML view](./readme_assets/html-view.png "HTML view")
+## HTML view (Linear or circular)
+![vMix Input Progress Monitor App - HTML view Linear](./readme_assets/html-view-linear.png "HTML view linear")
+
+![vMix Input Progress Monitor App - HTML view Circular](./readme_assets/html-view-circular.png "HTML view circular")
 
 ## Downloads
 
