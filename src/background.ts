@@ -1,6 +1,7 @@
 'use strict'
 
 import { app, protocol, BrowserWindow, Menu, ipcMain } from 'electron'
+import windowStateKeeper from 'electron-window-state'
 import { createProtocol, installVueDevtools } from 'vue-cli-plugin-electron-builder/lib'
 
 // Web socket and web socket server
@@ -23,14 +24,26 @@ protocol.registerSchemesAsPrivileged([
 ])
 
 function createWindow() {
+  const mainWindowState = windowStateKeeper({
+    defaultWidth: 1000,
+    defaultHeight: 600
+  })
+
   // Create the browser window.
   win = new BrowserWindow({
-    width: 860,
-    height: 430,
+    width: mainWindowState.width,
+    height: mainWindowState.height,
+    x: mainWindowState.x,
+    y: mainWindowState.y,
+
     webPreferences: {
       nodeIntegration: true
     }
   })
+
+  // Manage window state (position and size)
+  // and remember it for every time the application is opened
+  mainWindowState.manage(win)
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
@@ -167,7 +180,8 @@ wss.on('connection', (ws: WebSocket) => {
   )
 })
 
-ipcMain.on('vMixInfo', (event, data) => {
+// Listen for vMix info data from renderer thread
+ipcMain.on('vMixInfo', (_event, data: any) => {
   currentvMixData = data
   // console.log('IPC Event', event)
   // console.log(data)
