@@ -1,3 +1,5 @@
+import { TitleModeSettings } from '@/types/title-mode'
+
 export default {
   /**
    * Set vMix connection host
@@ -18,6 +20,16 @@ export default {
   },
 
   /**
+   * Set delay compensation
+   *
+   * @param state
+   * @param newValue
+   */
+  setDelayCompensation(state: any, newValue: number) {
+    state.delayCompensation = newValue
+  },
+
+  /**
    * Toggle title mode on/off
    * @param state
    */
@@ -29,20 +41,12 @@ export default {
    * Save title mode settings
    * @param state
    */
-  saveTitleModeSettings(
-    state: any,
-    data: {
-      enabled: boolean
-      input: string
-      textField: string
-      widthField: string
-      totalWidthForWidthField: number
-    }
-  ) {
+  saveTitleModeSettings(state: any, data: TitleModeSettings) {
     state.titleMode.enabled = data.enabled
-    state.titleMode.input = data.input
-    state.titleMode.widthField = data.widthField
-    state.titleMode.textField = data.textField
-    state.titleMode.totalWidthForWidthField = data.totalWidthForWidthField
+    state.titleMode.sameInputForAllFields = data.sameInputForAllFields
+
+    state.titleMode.fields.currentPosition = data.fields.currentPosition
+    state.titleMode.fields.remaining = data.fields.remaining
+    state.titleMode.fields.width = data.fields.width
   }
 }

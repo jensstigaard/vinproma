@@ -6,11 +6,17 @@ export default {
 
   previousVmixConnectionHosts: [],
 
+  // Delay compensation
+  // How many milliseconds shall the presentation act as it is before in time
+  delayCompensation: 0,
+
   titleMode: {
     enabled: false,
-    input: null,
-    textField: null,
-    widthField: null,
-    totalWidthForWidthField: 1000
+    sameInputForAllFields: true,
+    fields: {
+      currentPosition: [],
+      remaining: [],
+      width: []
+    }
   }
 }

@@ -14,6 +14,10 @@ export default {
     commit('addHostToPreviousConnectedVmixHosts', state.vMixConnection.host)
   },
 
+  setDelayCompensation({ commit }: { commit: Function }, newValue: number) {
+    commit('setDelayCompensation', newValue)
+  },
+
   toggleTitleMode({ commit }: { commit: Function }) {
     commit('toggleTitleMode')
   },
