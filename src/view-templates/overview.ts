@@ -4,7 +4,7 @@ export default `
 
 <head>
 	<meta charset="utf-8">
-	<title>vMix Input Progress Monitor</title>
+	<title>vinproma &ndash; vMix Input Progress Monitor</title>
 	<link rel="stylesheet" href="/css/app.css">
 </head>
 

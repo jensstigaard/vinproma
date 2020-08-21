@@ -6,7 +6,7 @@ export default (type: string, theme: string = 'light') => {
 	
 	<head>
 		<meta charset="utf-8">
-		<title>vMix Input Progress Monitor</title>
+		<title>vinproma &ndash; vMix Input Progress Monitor</title>
 		<link rel="stylesheet" href="/css/app.css">
 		`,
     // Inject CSS for dark theme if dark theme desired
