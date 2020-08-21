@@ -27,6 +27,7 @@ See the [Releases](../../releases) tab for a direct download of the app for Mac 
  - vMix title mode: Send progress to a vMix title input of your choice
    - Multiple types of data to send
    - Ability to setup multiple "destinations"
+ - Ability to enable Delay compensation
 
 ## Project architecture
 The project consists of several components. The app is built with Electron, meaning that the app can be compiled for Windows, Mac or Linux.
