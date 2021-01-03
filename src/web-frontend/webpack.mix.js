@@ -2,7 +2,6 @@ const mix = require('laravel-mix')
 
 require('laravel-mix-tailwind')
 
-
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -14,12 +13,15 @@ require('laravel-mix-tailwind')
  |
  */
 
-mix.js('src/app.js', 'dist/public/js')
-   .sass('src/app.sass', 'dist/public/css')
-   .sass('src/dark.sass', 'dist/public/css')
-   .setPublicPath('dist/public')
-   .tailwind()
+mix
+  .js('src/app.js', 'dist/public/js')
+  .sass('src/app.sass', 'dist/public/css')
+  .sass('src/dark.sass', 'dist/public/css')
+  .setPublicPath('dist/public')
+  .tailwind()
 
 mix
-   .disableNotifications()
-   .sourceMaps()
+  // Disable notifications
+  .disableNotifications()
+  // Add source maps
+  .sourceMaps()

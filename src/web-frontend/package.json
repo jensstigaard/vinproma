@@ -1,5 +1,5 @@
 {
-  "name": "vinprom-web-frontend",
+  "name": "vinproma-web-frontend",
   "version": "1.0.0",
   "private": true,
   "main": "index.js",
@@ -15,18 +15,21 @@
   },
   "dependencies": {
     "font-awesome": "^4.7.0",
-    "moment": "^2.26.0",
-    "pug": "^2.0.4",
-    "tailwindcss": "^0.7.4",
-    "vue": "^2.6.11",
-    "vue-circle-counter": "^3.0.0",
+    "moment": "^2.29.1",
+    "pug": "^3.0.0",
+    "tailwindcss": "^2.0.2",
+    "vue": "^2.6.12",
+    "vue-circle-counter": "^3",
     "vue-native-websocket": "^2.0.14",
-    "vue-timeago": "^3.1.5"
+    "vue-timeago": "^5.1.2"
   },
   "devDependencies": {
-    "cross-env": "^7.0.2",
-    "jsonfile": "^6.0.1",
-    "laravel-mix": "^2.1.14",
-    "laravel-mix-tailwind": "^0.1.0"
+    "cross-env": "^7.0.3",
+    "jsonfile": "^6.1",
+    "laravel-mix": "^2",
+    "laravel-mix-tailwind": "^0.1.1",
+    "postcss": "8.1",
+    "pug-plain-loader": "^1.1.0",
+    "resolve-url-loader": "3.1.0"
   }
 }
