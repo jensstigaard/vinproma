@@ -25,10 +25,10 @@ export const wss = new WebSocket.Server({
       // See zlib defaults.
       chunkSize: 1024,
       memLevel: 7,
-      level: 3
+      level: 3,
     },
     zlibInflateOptions: {
-      chunkSize: 10 * 1024
+      chunkSize: 10 * 1024,
     },
     // Other options settable:
     clientNoContextTakeover: true, // Defaults to negotiated value.
@@ -36,9 +36,9 @@ export const wss = new WebSocket.Server({
     serverMaxWindowBits: 10, // Defaults to negotiated value.
     // Below options specified as default values.
     concurrencyLimit: 10, // Limits zlib concurrency for perf.
-    threshold: 1024 // Size (in bytes) below which messages
+    threshold: 1024, // Size (in bytes) below which messages
     // should not be compressed.
-  }
+  },
 })
 
 // app.use(logger('dev'))
@@ -91,7 +91,7 @@ if (app.get('env') === 'development') {
 
     res.render('error', {
       message: err.message,
-      error: err
+      error: err,
     })
   })
 } else {
@@ -102,7 +102,7 @@ if (app.get('env') === 'development') {
 
     res.render('error', {
       message: err.message,
-      error: {}
+      error: {},
     })
   })
 }
@@ -121,5 +121,5 @@ wss.on('connection', function connection(ws) {
 // to tap into listeners and to send/broadcast messages
 export default {
   app,
-  wss
+  wss,
 }

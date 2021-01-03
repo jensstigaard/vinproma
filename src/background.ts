@@ -1,8 +1,9 @@
 'use strict'
 
-import { app, protocol, BrowserWindow, Menu, ipcMain } from 'electron'
+import { app, protocol, BrowserWindow, ipcMain } from 'electron'
+import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
+import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 import windowStateKeeper from 'electron-window-state'
-import { createProtocol, installVueDevtools } from 'vue-cli-plugin-electron-builder/lib'
 
 // Web socket and web socket server
 import WebSocket from 'ws'
@@ -20,13 +21,13 @@ let win: BrowserWindow | null
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
-  { scheme: 'app', privileges: { secure: true, standard: true } }
+  { scheme: 'app', privileges: { secure: true, standard: true } },
 ])
 
 function createWindow() {
   const mainWindowState = windowStateKeeper({
     defaultWidth: 1000,
-    defaultHeight: 600
+    defaultHeight: 600,
   })
 
   // Create the browser window.
@@ -37,8 +38,9 @@ function createWindow() {
     y: mainWindowState.y,
 
     webPreferences: {
-      nodeIntegration: true
-    }
+      nodeIntegration: true,
+      enableRemoteModule: true,
+    },
   })
 
   // Manage window state (position and size)
@@ -89,7 +91,7 @@ app.on('ready', async () => {
     // If you are not using Windows 10 dark mode, you may uncomment these lines
     // In addition, if the linked issue is closed, you can upgrade electron and uncomment these lines
     try {
-      await installVueDevtools()
+      await installExtension(VUEJS_DEVTOOLS)
     } catch (e) {
       console.error('Vue Devtools failed to install:', e.toString())
     }
@@ -100,7 +102,7 @@ app.on('ready', async () => {
 // Exit cleanly on request from parent process in development mode.
 if (isDevelopment) {
   if (process.platform === 'win32') {
-    process.on('message', data => {
+    process.on('message', (data) => {
       if (data === 'graceful-exit') {
         app.quit()
       }
@@ -175,7 +177,7 @@ wss.on('connection', (ws: WebSocket) => {
   ws.send(
     JSON.stringify({
       type: 'input',
-      data: currentvMixData
+      data: currentvMixData,
     })
   )
 })
@@ -192,7 +194,7 @@ ipcMain.on('vMixInfo', (_event, data: any) => {
       client.send(
         JSON.stringify({
           type: 'input',
-          data
+          data,
         })
       )
     }
