@@ -2,7 +2,7 @@
 
 [![vMix Input Progress Monitor App](https://img.shields.io/github/v/release/jensstigaard/vinproma.svg)](../../releases)
 [![vMix Input Progress Monitor App](https://img.shields.io/github/downloads/jensstigaard/vinproma/total.svg)](../../releases)
-
+[![Sponsor me - vMix Input Progress Monitor Electron](https://img.shields.io/badge/paypal-donate-brightgreen.svg)](https://paypal.me/stigaard)
 
 **v**Mix **In**put **Pro**gress **M**onitor **A**pp (shortened: *vinproma*) built with [ElectronJS](https://electronjs.org). ElectronJS is a cross-platform framework allowing the app to be built for each Windows, Mac or Linux. 
 
