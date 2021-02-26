@@ -1,6 +1,6 @@
 const mix = require('laravel-mix')
 
-require('laravel-mix-tailwind')
+require('mix-tailwindcss')
 
 /*
  |--------------------------------------------------------------------------
@@ -13,11 +13,34 @@ require('laravel-mix-tailwind')
  |
  */
 
+mix.webpackConfig({
+  module: {
+    rules: [
+      // https://vue-loader.vuejs.org/guide/pre-processors.html#pug
+      {
+        test: /\.pug$/,
+        oneOf: [
+          // this applies to `<template lang="pug">` in Vue components
+          {
+            resourceQuery: /^\?vue/,
+            use: ['pug-plain-loader'],
+          },
+          // this applies to pug imports inside JavaScript
+          {
+            use: ['raw-loader', 'pug-plain-loader'],
+          },
+        ],
+      },
+    ],
+  },
+})
+
 mix
-  .js('src/app.js', 'dist/public/js')
-  .sass('src/app.sass', 'dist/public/css')
-  .sass('src/dark.sass', 'dist/public/css')
   .setPublicPath('dist/public')
+  .js('src/app.js', 'js')
+  .sass('src/app.sass', 'css')
+  .sass('src/dark.sass', 'css')
+  .vue({ version: 2 })
   .tailwind()
 
 mix

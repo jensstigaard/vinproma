@@ -2,11 +2,7 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons|Raleway:300,400,600")
 @import url("https://use.fontawesome.com/releases/v5.1.0/css/all.css")
 
-
-// @import "tailwindcss/base"
-// @import "tailwindcss/components"
-// @import "tailwindcss/utilities"
-
+// Tailwind
 @tailwind base
 @tailwind components
 @tailwind utilities
@@ -64,14 +60,10 @@ a
 		text-align: center
 
 		.program
-			height: 100px
+			height: 110px
 				
 			.text-overlays
 				padding: 10px
-
-			.duration
-				padding: 5px
-				font-size: 30pt
 		
 		.preview
 			height: 30px
@@ -80,10 +72,13 @@ a
 			.text-overlays
 				padding: 2px
 
-		// Shared for both program and preview
+		// Shared for both program and preview linear bars
 		.program, .preview
 			background: rgba(0, 0, 0, 0.2)
 			position: relative
+	
+			.duration
+				font-size: 30pt
 
 			.text-overlays
 				position: absolute
@@ -96,7 +91,6 @@ a
 
 				.title
 					// padding	x: 5px
-					
 
 			.position-bar
 				position: absolute

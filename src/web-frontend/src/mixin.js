@@ -53,21 +53,32 @@ export default Vue.extend({
       return remainingTime <= warningThreshold
     },
 
+    isRunning(input) {
+      return input.state === 'Running'
+    },
+
+    backgroundColor(input, isProgram = true) {
+      // Is paused?
+      if (!this.isRunning(input)) {
+        // Show blue-ish color when paused
+        return 'rgba(100, 150, 255, 0.6)'
+      }
+
+      return this.remainingWarning(input) // Below "warning" threshold?
+        ? 'rgba(255, 100, 100, 0.8)' // Show red (warning color)
+        : 'rgba(100, 200, 100, 0.8)' // Otherwise green
+    },
+
     positionStyle(input) {
       const p = this.positionPercentage(input)
       const percentage = p < 2 ? 0 : p
 
-      const background =
-        input.state !== 'Running' // Paused?
-          ? 'rgba(100, 150, 255, 0.8)' // Show blue-ish color
-          : this.remainingWarning(input) // Below "warning" threshold?
-          ? 'rgba(255, 100, 100, 0.8)' // Show red (warning color)
-          : 'rgba(100, 200, 100, 0.8)' // Otherwise green
+      const background = this.backgroundColor(input)
 
       return {
         width: `${percentage}%`,
-        background
+        background,
       }
-    }
-  }
+    },
+  },
 })

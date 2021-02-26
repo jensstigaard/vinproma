@@ -23,7 +23,7 @@ div.flex.circular-progress-bars
 				size="400"
 				:dash-count="durationSeconds(program)"
 				:active-count="positionSeconds(program)"
-				active-stroke="red"
+				:active-stroke="backgroundColor(program)"
 				:text="`${positionText(program)} / ${durationText(program)} / ${remainingText(program)}`"
 			)
 			// Title
@@ -41,12 +41,12 @@ export default {
   mixins: [baseMixin],
 
   components: {
-    CircleCounter
+    CircleCounter,
   },
 
   props: {
     program: Object,
-    preview: Object
-  }
+    preview: Object,
+  },
 }
 </script>

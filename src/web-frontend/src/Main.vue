@@ -25,7 +25,7 @@ export default {
   mixins: [baseMixin],
   components: {
     Linear,
-    Circular
+    Circular,
   },
 
   data() {
@@ -40,12 +40,12 @@ export default {
       // Socket details
       socketPingInterval: null,
       latestPing: new Date(),
-      latestPong: new Date()
+      latestPong: new Date(),
     }
   },
 
   created() {
-    this.$options.sockets.onmessage = message => {
+    this.$options.sockets.onmessage = (message) => {
       // Guard message...
       if (typeof message !== 'object' || !message.data) {
         console.error('Message did not have data attribute...', typeof message)
@@ -81,7 +81,7 @@ export default {
       }
     }
 
-    this.$options.sockets.onerror = message => {
+    this.$options.sockets.onerror = (message) => {
       console.error('Error for socket', message)
     }
 
@@ -101,7 +101,7 @@ export default {
       const diff = this.latestPing - this.latestPong
       // console.log(diff)
       return diff > PING_ANSWER_THRESHOLD
-    }
-  }
+    },
+  },
 }
 </script>
