@@ -9,8 +9,8 @@ div(style="margin-top: -30px")
             v-btn(icon v-on="on" color="grey" style="cursor:help")
               v-icon(small) fa-question-circle
           span Feed progress back to a title input in vMix. 
-            | You can feed back to vMix as many fields you desired, both current position, remaining and with fields. 
-            | A XAML title is recommended, since it can present as a progress bar. 
+            | You can feed back to vMix as many fields you desired, both current position, remaining and width fields. 
+            | It is recommended to feed back to XAML titles, since it can present as a progress bar based on the width. 
     
     v-col: v-checkbox(
       v-model="settings.enabled"
@@ -92,15 +92,15 @@ import {
   TitleModeSettings,
   TitleModeCurrentPositionField,
   TitleModeRemainingField,
-  TitleModeWidthField
+  TitleModeWidthField,
 } from '@/types/title-mode'
 
 @Component({
   components: {
     CurrentPositionFields,
     RemainingFields,
-    WidthFields
-  }
+    WidthFields,
+  },
 })
 export default class TitleModeSettingsIndex extends Vue {
   @Prop(Array) readonly titles!: any[]
@@ -154,7 +154,7 @@ export default class TitleModeSettingsIndex extends Vue {
         return
       }
 
-      const title = this.titles.find(t => t.key === field.inputKey)
+      const title = this.titles.find((t) => t.key === field.inputKey)
 
       if (!title) {
         returnValue = false
@@ -189,7 +189,7 @@ export default class TitleModeSettingsIndex extends Vue {
         return
       }
 
-      const title = this.titles.find(t => t.key === field.inputKey)
+      const title = this.titles.find((t) => t.key === field.inputKey)
 
       if (!title) {
         returnValue = false
@@ -230,7 +230,7 @@ export default class TitleModeSettingsIndex extends Vue {
         return
       }
 
-      const title = this.titles.find(t => t.key === field.inputKey)
+      const title = this.titles.find((t) => t.key === field.inputKey)
 
       if (!title) {
         returnValue = false
@@ -276,7 +276,7 @@ export default class TitleModeSettingsIndex extends Vue {
       return null
     }
 
-    const title = this.titles.find(t => t.key === this.inputForAllFields)
+    const title = this.titles.find((t) => t.key === this.inputForAllFields)
 
     if (!title) {
       return null
