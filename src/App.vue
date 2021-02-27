@@ -6,7 +6,7 @@
       v-container(v-if="!$vMixConnection.connected")
         div.text-center
           v-icon(color="orange") fa-exclamation-circle
-          div: b Not yet connected to vMix instance... {{ $vMixConnection.connected }}
+          div: b Not yet connected to vMix instance...
           div Please check whether the entered IP address ({{ $store.state.vMixConnection.host }}) is correct...
       v-container(fluid v-else)
         div(v-if="!tallyInfo") No inputs found somehow...
@@ -46,22 +46,22 @@ import VmixTitleModeSettings from './views/TitleModeSettings/Index.vue'
 import {
   TitleModeCurrentPositionField,
   TitleModeWidthField,
-  TitleModeRemainingField
+  TitleModeRemainingField,
 } from './types/title-mode'
 
 // Interval for fetching XML data
 const FETCH_XML_DATA_INTERVAL: number = 200 // ms
 
 // Helper
-const sleep = (m: number) => new Promise(r => setTimeout(r, m))
+const sleep = (m: number) => new Promise((r) => setTimeout(r, m))
 
 @Component({
   components: {
     AppBar,
     DelayCompensationSlider,
     HtmlViews,
-    VmixTitleModeSettings
-  }
+    VmixTitleModeSettings,
+  },
 })
 export default class App extends Vue {
   programInput: any | null = null
@@ -119,7 +119,7 @@ export default class App extends Vue {
           'title',
           'state',
           'duration',
-          'position'
+          'position',
         ])
       ) as any[]
 
@@ -221,7 +221,7 @@ export default class App extends Vue {
           Function: 'SetText',
           Input: currentPositionField.inputKey,
           SelectedName: currentPositionField.selectedName,
-          Value: output.join('')
+          Value: output.join(''),
         })
       }
     )
@@ -233,7 +233,7 @@ export default class App extends Vue {
         Function: 'SetText',
         Input: remainingField.inputKey,
         SelectedName: remainingField.selectedName,
-        Value: remaining
+        Value: remaining,
       })
     })
 
@@ -252,7 +252,7 @@ export default class App extends Vue {
         Function: 'SetText',
         Input: widthField.inputKey,
         SelectedName: widthField.selectedName,
-        Value: calculatedCurrentWidth
+        Value: calculatedCurrentWidth,
       })
     })
   }
@@ -260,7 +260,7 @@ export default class App extends Vue {
   async sendUpdatedDataToFrontend() {
     const data = {
       program: this.programInput,
-      preview: this.previewInput
+      preview: this.previewInput,
     }
 
     const message = JSON.stringify(data)
