@@ -2,7 +2,7 @@
   "name": "vinproma",
   "productName": "vinproma",
   "version": "0.4.1",
-  "private": false,
+  "private": true,
   "author": {
     "name": "Jens Grønhøj Stigaard",
     "email": "jens@stigaard.info"
