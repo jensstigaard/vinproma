@@ -26,6 +26,10 @@ export default Vue.extend({
       return this.roundedSeconds(input.duration)
     },
 
+    hasDuration(input) {
+      return input.hasOwnProperty('duration') && this.durationSeconds(input) > 0
+    },
+
     positionText(input) {
       return durationNice(this.positionSeconds(input))
     },
@@ -43,7 +47,24 @@ export default Vue.extend({
       return Math.round((input.position / input.duration) * 100)
     },
 
+    counterText(input) {
+      if (!this.hasDuration(input)) {
+        return `${input.type || '-'}`
+      }
+      // console.log(input)
+
+      const pos = this.positionText(input)
+      const dur = this.durationText(input)
+      const remaining = this.remainingText(input)
+
+      return `${pos} / ${dur} / ${remaining}`
+    },
+
     remainingWarning(input) {
+      if (input.loop === 'True') {
+        return false
+      }
+
       // Remaining time in milliseconds
       const remainingTime = input.duration - input.position
 

@@ -1,15 +1,11 @@
 <template lang="pug">
-div#app
-  div(v-if="connectionLost" style="padding: 10px; text-align: center") 
+#app
+  div(v-if='connectionLost', style='padding: 10px; text-align: center') 
     | Connection lost... Try to refresh...
-  div(v-else-if="!program").text-center.px-4.py-3 
+  .text-center.px-4.py-3(v-else-if='!data || !data.hasOwnProperty("inProgram")') 
     | Connected to vMix instance - but no data received yet... Waiting in patience!
   div(v-else)
-    component(
-      v-bind:is="presentationType"
-      :program="program"
-      :preview="preview"
-    )
+    component(v-bind:is='presentationType', :data='data')
 </template>
 
 <script>
@@ -33,9 +29,8 @@ export default {
       // Read what presenation type it should be based of location pathname
       presentationType: location.pathname === '/circular' ? 'circular' : 'linear',
 
-      // Program and preview data from vMix
-      program: null,
-      preview: null,
+      // Program, preview, and overlay channel data from vMix
+      data: null,
 
       // Socket details
       socketPingInterval: null,
@@ -64,14 +59,7 @@ export default {
         // console.log(content)
 
         if (content.type === 'input') {
-          const data = JSON.parse(content.data)
-
-          if (data.program) {
-            this.$set(this, 'program', data.program)
-          }
-          // if (data.preview) {
-          this.$set(this, 'preview', data.preview || null)
-          // }
+          this.data = JSON.parse(content.data)
         } else {
           console.error('Unknown DATA', content)
         }

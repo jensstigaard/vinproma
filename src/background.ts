@@ -7,7 +7,7 @@ import windowStateKeeper from 'electron-window-state'
 
 // Web socket and web socket server
 import WebSocket from 'ws'
-import { wss } from './webserver'
+import webserver from './webserver'
 
 // VueX store
 // import store from './store'
@@ -167,6 +167,17 @@ if (isDevelopment) {
 
 let currentvMixData: string = ''
 
+function apiRoute(req: any, res: any) {
+  if (currentvMixData === '') {
+    return res.send({ message: 'No data...' })
+  }
+  // console.log('Theme', theme)
+  return res.send(`[${currentvMixData}]`)
+}
+
+// Initialize webserver
+const { wss } = webserver(apiRoute)
+
 // Upon new ws connection - send current vMix data
 wss.on('connection', (ws: WebSocket) => {
   // Guard if current vMix data is empty...
@@ -189,7 +200,8 @@ ipcMain.on('vMixInfo', (_event, data: any) => {
   // console.log(data)
 
   // Broadcast to all open ws clients
-  wss.clients.forEach(function each(client) {
+  wss.clients.forEach(function each(client: WebSocket) {
+    // Check if ws client is open
     if (client.readyState === WebSocket.OPEN) {
       client.send(
         JSON.stringify({

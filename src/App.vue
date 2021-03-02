@@ -1,27 +1,26 @@
 <template lang="pug">
-  v-app
-    app-bar
+v-app
+  app-bar
 
-    v-main
-      v-container(v-if="!$vMixConnection.connected")
-        div.text-center
-          v-icon(color="orange") fa-exclamation-circle
-          div: b Not yet connected to vMix instance...
-          div Please check whether the entered IP address ({{ $store.state.vMixConnection.host }}) is correct...
-      v-container(fluid v-else)
-        div(v-if="!tallyInfo") No inputs found somehow...
-        div(v-else)
-          v-row
-            v-col: delay-compensation-slider
-            
-            v-divider(vertical)
+  v-main
+    v-container(v-if='!$vMixConnection.connected')
+      .text-center
+        v-icon(color='orange') fa-exclamation-circle
+        div: b Not yet connected to vMix instance...
+        div Please check whether the entered IP address ({{ $store.state.vMixConnection.host }}) is correct...
+    v-container(fluid, v-else)
+      div(v-if='!tallyInfo') No inputs found somehow...
+      div(v-else)
+        v-row
+          v-col: delay-compensation-slider
 
-            v-col: html-views
+          v-divider(vertical)
 
-          v-divider.my-4
-          
-          vmix-title-mode-settings(:titles="titles")
+          v-col: html-views
 
+        v-divider.my-4
+
+        vmix-title-mode-settings(:titles='titles')
 </template>
 
 <script lang="ts">
@@ -30,7 +29,7 @@ import { ipcRenderer } from 'electron'
 import { Vue, Component, Watch } from 'vue-property-decorator'
 
 // Modules util
-import { XmlInputMapper, XmlApiDataParser } from 'vmix-js-utils'
+import { XmlInputMapper, XmlApiDataParser, XmlOverlayChannels } from 'vmix-js-utils'
 import { TallySummary } from 'vmix-js-utils/dist/types/tcp'
 
 // Utility
@@ -64,8 +63,19 @@ const sleep = (m: number) => new Promise((r) => setTimeout(r, m))
   },
 })
 export default class App extends Vue {
-  programInput: any | null = null
-  previewInput: any | null = null
+  programInputs: { [key: string]: any }[] = []
+  previewInputs: { [key: string]: any }[] = []
+  overlayChannels: {
+    1: { [key: string]: any } | null
+    2: { [key: string]: any } | null
+    3: { [key: string]: any } | null
+    4: { [key: string]: any } | null
+  } = {
+    1: null,
+    2: null,
+    3: null,
+    4: null,
+  }
 
   tallyInfo: TallySummary | null = null
   titles: { [key: string]: any }[] = []
@@ -105,66 +115,95 @@ export default class App extends Vue {
       // console.log('Tally summary:', tallySummary)
 
       this.tallyInfo = tallySummary
+
+      // Send XML request on tally info received
+      // @ts-ignore
+      this.$vMixConnection!.send(`XML`)
     })
 
     // Request XML data each Xth second to update input titles
     // @ts-ignore
     this.$vMixConnection!.on('xml', (xmlRawData: string) => {
       const xmlContent = XmlApiDataParser.parse(xmlRawData)
+      const overlayChannels = Object.entries(XmlOverlayChannels.extract(xmlContent))
+      const inputNumbersInOverlay = overlayChannels
+        .map(([_number, overlayChannel]) => overlayChannel.inputNumber)
+        .filter((inputNumber) => inputNumber !== null) as number[]
 
       const inputs = Object.values(
         XmlInputMapper.mapInputs(XmlInputMapper.extractInputsFromXML(xmlContent), [
+          'number',
           'type',
-          'fields',
+          'fields', // for titles
           'title',
-          'state',
+          'state', // Running, Paused
           'duration',
           'position',
-        ])
-      ) as any[]
-
-      // console.log('Total inputs', inputs.length)
+          'loop',
+        ]) as { [key: string]: any }
+      ).map((input: { [key: string]: any }) => {
+        input.number = Number(input.number)
+        input.duration = Number(input.duration)
+        input.position = Number(input.position)
+        return input
+      })
 
       this.titles = inputs
-        .map((input: { [key: string]: any }, index: number) => {
-          input.number = index + 1
+        .map((input: { [key: string]: any }) => {
           input.nice = `${input.number} - ${input.title}`
           return input
         })
         .filter((input: { [key: string]: any }) => ['GT', 'Xaml'].includes(input.type))
 
-      if (!this.tallyInfo) {
-        return
-      }
+      // console.log('Total inputs', inputs.length, 'titles', this.titles.length)
 
-      const tallyInfo = this.tallyInfo
+      const tallyInfo = this.tallyInfo // Can be null
 
-      const programInput = inputs[tallyInfo.program[0] - 1]
-      // Parse preview input if not the same as in program,
-      // and the input has duration attribute
-      // Otherwise just set to null
-      const previewInput =
-        tallyInfo.preview.length &&
-        inputs[tallyInfo.preview[0] - 1].duration &&
-        Number(inputs[tallyInfo.preview[0] - 1].duration)
-          ? inputs[tallyInfo.preview[0] - 1]
-          : null
+      const hasFreeProgramInputsLeft =
+        !tallyInfo ||
+        inputNumbersInOverlay.filter((inputNumber) => tallyInfo.program.includes(inputNumber))
+          .length < tallyInfo.program.length
+
+      const hasFreePreviewInputsLeft =
+        !tallyInfo ||
+        inputNumbersInOverlay.filter((inputNumber) => tallyInfo.preview.includes(inputNumber))
+          .length < tallyInfo.preview.length
+
+      const programInputNumbers =
+        tallyInfo !== null && hasFreeProgramInputsLeft
+          ? tallyInfo.program.filter((i) => inputs.length > i)
+          : [XmlInputMapper.extractProgramFromXML(xmlContent)]
+
+      // Parse preview inputs if not the same as in program,
+      const previewInputNumbers =
+        tallyInfo !== null && hasFreePreviewInputsLeft
+          ? tallyInfo.preview.filter((i) => !programInputNumbers.includes(i) && inputs.length > i)
+          : [XmlInputMapper.extractPreviewFromXML(xmlContent)]
+
+      const programInputs = inputs.filter((input) => programInputNumbers.includes(input.number))
+      const previewInputs = inputs.filter((input) => previewInputNumbers.includes(input.number))
+
+      // console.log(programInputs.length, previewInputs.length)
 
       // Apply delay compensation
       const delayCompensation = this.$store.state.delayCompensation // ms
 
-      const programNewPosition = Number(programInput.position) + delayCompensation
-      // console.log('Compensated delay for program', programInput.position, programNewPosition)
-      programInput.position = programNewPosition < 0 ? 0 : programNewPosition
-
-      if (previewInput) {
-        const previewNewPosition = Number(previewInput.position) + delayCompensation
-        previewInput.position = previewNewPosition < 0 ? 0 : previewNewPosition
-      }
+      const programInputsAppliedDelayCompensation = programInputs.map((input) => {
+        const newPosition = Number(input.position) + delayCompensation
+        input.position = newPosition < 0 ? 0 : newPosition
+        // console.log('Compensated delay for program', input.position, newPosition)
+        return input
+      })
+      const previewInputsAppliedDelayCompensation = previewInputs.map((input) => {
+        const newPosition = Number(input.position) + delayCompensation
+        input.position = newPosition < 0 ? 0 : newPosition
+        // console.log('Compensated delay for preview', input.position, newPosition)
+        return input
+      })
 
       // Update program and preview input
-      this.programInput = programInput
-      this.previewInput = previewInput
+      this.programInputs = programInputsAppliedDelayCompensation
+      this.previewInputs = previewInputsAppliedDelayCompensation
 
       this.sendUpdatedData()
     })
@@ -178,7 +217,7 @@ export default class App extends Vue {
   }
 
   @Watch('$store.state.vMixConnection.host')
-  onHostChanged(newVal: string, oldval: string) {
+  onHostChanged(newVal: string, _oldval: string) {
     const newHost = newVal
     // @ts-ignore
     this.$vMixConnection.setConnection(newHost, { debug: false })
@@ -196,12 +235,19 @@ export default class App extends Vue {
   async sendUpdatedDataTitleMode() {
     const titleMode = this.$store.state.titleMode
 
+    if (this.programInputs.length === 0) {
+      return
+    }
+
+    // Use first input in program inputs list blindly
+    const programInput = this.programInputs[0]
+
     // Prepare values for sending to vMix
-    const pos = durationNice(Math.floor(this.programInput.position / 1000))
-    const duration = durationNice(Math.floor(this.programInput.duration / 1000))
+    const pos = durationNice(Math.floor(programInput.position / 1000))
+    const duration = durationNice(Math.floor(programInput.duration / 1000))
 
     const remaining = durationNice(
-      Math.ceil((this.programInput.duration - this.programInput.position) / 1000)
+      Math.ceil((programInput.duration - programInput.position) / 1000)
     )
 
     // Current position fields
@@ -240,7 +286,7 @@ export default class App extends Vue {
     // Width fields stating program progress
     titleMode.fields.width.forEach((widthField: TitleModeWidthField) => {
       // Calculate current width
-      const progressPercentage = this.programInput.position / this.programInput.duration
+      const progressPercentage = programInput.position / programInput.duration
 
       const calculatedCurrentWidth: number =
         (widthField.totalWidth * Math.round(progressPercentage * 100)) / 100
@@ -259,8 +305,9 @@ export default class App extends Vue {
 
   async sendUpdatedDataToFrontend() {
     const data = {
-      program: this.programInput,
-      preview: this.previewInput,
+      inProgram: this.programInputs,
+      inPreview: this.previewInputs,
+      overlayChannels: this.overlayChannels,
     }
 
     const message = JSON.stringify(data)

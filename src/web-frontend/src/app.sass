@@ -59,13 +59,13 @@ a
 		
 		text-align: center
 
-		.program
+		.program-inputs .item
 			height: 110px
 				
 			.text-overlays
 				padding: 10px
 		
-		.preview
+		.preview-inputs .item
 			height: 30px
 			margin-bottom: 1px
 
@@ -73,35 +73,36 @@ a
 				padding: 2px
 
 		// Shared for both program and preview linear bars
-		.program, .preview
-			background: rgba(0, 0, 0, 0.2)
-			position: relative
-	
-			.duration
-				font-size: 30pt
+		.program-inputs, .preview-inputs
+			.item
+				background: rgba(0, 0, 0, 0.2)
+				position: relative
+		
+				.duration
+					font-size: 30pt
 
-			.text-overlays
-				position: absolute
-				height: 100%
-				width: 100%
+				.text-overlays
+					position: absolute
+					height: 100%
+					width: 100%
 
-				z-index: 10
+					z-index: 10
 
-				text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3)
+					text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3)
 
-				.title
-					// padding	x: 5px
+					.title
+						// padding	x: 5px
 
-			.position-bar
-				position: absolute
-				left: 0
-				top: 0
-				bottom: 0
-				// Variable width
+				.position-bar
+					position: absolute
+					left: 0
+					top: 0
+					bottom: 0
+					// Variable width
 
-				z-index: 0
-				
-				transition: width ease 0.7s, background ease 0.3s
+					z-index: 0
+					
+					transition: width ease 0.7s, background ease 0.3s
 
 	.circular-progress-bars
 		margin: 20px
@@ -112,6 +113,13 @@ a
 			
 		svg
 			margin: 0 auto
+			
+		// Shared for both program and preview linear bars
+		.program-inputs, .preview-inputs
+			.item
+
+				&:not(:last-child)
+					border-bottom: 1px dotted #CCC
 
 .fade-enter-active, .fade-leave-active
 	transition: opacity .3s
