@@ -1,0 +1,61 @@
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons|Raleway:300,400,600")
+@import url("https://use.fontawesome.com/releases/v5.1.0/css/all.css")
+
+// Tailwind
+@tailwind base
+@tailwind components
+@tailwind utilities
+
+// Variables
+
+
+html, body
+	margin: 0
+	padding: 0
+
+	height: 100%
+	
+	font-family: Lato, Raleway, sans-serif
+	font-weight: normal
+	font-size: 14pt
+
+	overflow: hidden
+
+a
+	text-decoration: none
+
+#overview-links
+	text-align: center
+	margin-top: 20px
+
+	> div
+		a
+			display: inline-block
+			width: 40%
+			height: 150px
+
+			padding: 50px
+
+			font-size: 30pt
+			text-align: center
+
+			border: 1px solid #CCC
+			background: #EEE
+
+			color: #333
+
+			&:nth-child(2)
+				background: #222
+				color: #EEE
+
+#app
+	@import "circular"
+	@import "linear"
+	
+.fade-enter-active, .fade-leave-active
+	transition: opacity .3s
+
+.fade-enter, .fade-leave-to
+	// /* .fade-leave-active below version 2.1.8 */ {
+	opacity: 0

@@ -38,8 +38,8 @@ mix.webpackConfig({
 mix
   .setPublicPath('dist/public')
   .js('src/app.js', 'js')
-  .sass('src/app.sass', 'css')
-  .sass('src/dark.sass', 'css')
+  .sass('src/styles/app.sass', 'css')
+  .sass('src/styles/dark.sass', 'css')
   .vue({ version: 2 })
   .tailwind()
 

@@ -1,0 +1,54 @@
+
+#linear-progress-bars
+	position: absolute
+	
+	bottom: 2%
+	left: 2%
+	right: 2%
+	
+	text-align: center
+
+	.program-inputs .item
+		height: 110px
+			
+		.text-overlays
+			padding: 10px
+	
+	.preview-inputs .item
+		height: 30px
+		margin-bottom: 1px
+
+		.text-overlays
+			padding: 2px
+
+	// Shared for both program and preview linear bars
+	.program-inputs, .preview-inputs
+		.item
+			background: rgba(0, 0, 0, 0.2)
+			position: relative
+	
+			.duration
+				font-size: 30pt
+
+			.text-overlays
+				position: absolute
+				height: 100%
+				width: 100%
+
+				z-index: 10
+
+				text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3)
+
+				.title
+					// padding	x: 5px
+
+			.position-bar
+				position: absolute
+				left: 0
+				top: 0
+				bottom: 0
+				// Variable width
+
+				z-index: 0
+				
+				transition: width ease 0.7s, background ease 0.3s
