@@ -326,10 +326,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.31.tgz#72286bd33d137aa0d152d47ec7c1762563d34055"
   integrity sha512-vFHy/ezP5qI0rFgJ7aQnjDXwAMrG0KqqIH7tQG5PPv3BWBayOPIQNBjVc/P6hhdZfMx51REc6tfDNXHUio893g==
 
-"@types/node@14.14.19":
-  version "14.14.19"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.19.tgz#5135176a8330b88ece4e9ab1fdcfc0a545b4bab4"
-  integrity sha512-4nhBPStMK04rruRVtVc6cDqhu7S9GZai0fpXgPXrFpcPX6Xul8xnrjSdGB4KPBVYG/R5+fXWdCM8qBoiULWGPQ==
+"@types/node@12":
+  version "12.20.18"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.20.18.tgz#37a0aab0560d1186da54ee5d62ff6a78cacb8c75"
+  integrity sha512-YoTiIwdKxM3VLiY2sM05x4iGuTveYiCcDaUVmo1L5ndrXxPGW/NEoZu+pGcBirziomizcZsnsQoemikKcB2fRA==
 
 "@types/node@^12.0.12":
   version "12.20.4"
@@ -6192,7 +6192,7 @@ node-releases@^1.1.70:
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.71.tgz#cb1334b179896b1c89ecfdd4b725fb7bbdfc7dbb"
   integrity sha512-zR6HoT6LrLCRBwukmrVbHv0EpEQjksO6GmFcZQQuCAy139BEsoVKPYnf3jongYW83fAa1torLGYwxxky/p28sg==
 
-node-vmix@^1.3, node-vmix@^1.3.4:
+node-vmix@^1.3.4:
   version "1.3.4"
   resolved "https://registry.yarnpkg.com/node-vmix/-/node-vmix-1.3.4.tgz#4a931c1d735f3cce2a9119203a4e853f125fa773"
   integrity sha512-LvjTsxVQszIOT47cSsU+TdEZOJ4IUKw/6BV4vSZTj6HgcDqscA5aF7ejT+3otGlCFsedSFmluKwvz9PQCIHohw==
@@ -8704,9 +8704,9 @@ tapable@^1.0.0, tapable@^1.1.3:
   integrity sha512-4WK/bYZmj8xLr+HUCODHGF1ZFzsYffasLUgEiMBY4fgtltdO6B4WJtlSbPaDTLpYTcGVwM2qLnFTICEcNxs3kA==
 
 tar@^6.0.2:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/tar/-/tar-6.1.0.tgz#d1724e9bcc04b977b18d5c573b333a2207229a83"
-  integrity sha512-DUCttfhsnLCjwoDoFcI+B2iJgYa93vBnDUATYEeRx6sntCTdN01VnqsIuTlALXla/LWooNg0yEGeB+Y8WdFxGA==
+  version "6.1.5"
+  resolved "https://registry.yarnpkg.com/tar/-/tar-6.1.5.tgz#6e25bee1cfda94317aedc3f5d49290ae68361d73"
+  integrity sha512-FiK6MQyyaqd5vHuUjbg/NpO8BuEGeSXcmlH7Pt/JkugWS8s0w8nKybWjHDJiwzCAIKZ66uof4ghm4tBADjcqRA==
   dependencies:
     chownr "^2.0.0"
     fs-minipass "^2.0.0"
@@ -9401,9 +9401,9 @@ vue-class-component@^7.2:
   integrity sha512-+eaQXVrAm/LldalI272PpDe3+i4mPis0ORiMYxF6Ae4hyuCh15W8Idet7wPUEs4N4YptgFHGys4UrgNQOMyO6w==
 
 vue-cli-plugin-electron-builder@^2.0:
-  version "2.0.0-rc.6"
-  resolved "https://registry.yarnpkg.com/vue-cli-plugin-electron-builder/-/vue-cli-plugin-electron-builder-2.0.0-rc.6.tgz#2c0df46167ef50c71923cf47836bb7e4f6685c29"
-  integrity sha512-VDpPwdGZ5qoEZe5DuPmyvDB8Ip/CyarpA9cWnEWNJcZ/2NajnglirMCa6cbLrwt9vsv6HFa28IsmVtaVu4dFqw==
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/vue-cli-plugin-electron-builder/-/vue-cli-plugin-electron-builder-2.1.1.tgz#de8bed25b32e73e28dd08061dd2a3c6bfff73227"
+  integrity sha512-ZrxFZ2uxgpwyFUE8LtguYqaTzSfZ1osME1uFlIj/Iz7GtLrATqs23n/BkKEpyEf5nYNAylzIM8ykGAfH/0QdmA==
   dependencies:
     "@vue/cli-shared-utils" "^4.5.6"
     chokidar "^3.0.2"
