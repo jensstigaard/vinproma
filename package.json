@@ -26,7 +26,7 @@
   "main": "background.js",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15",
-    "electron": "^10.2.0",
+    "electron": "^11.5.0",
     "electron-window-state": "^5",
     "express": "^4.17",
     "ip": "^1.1",
