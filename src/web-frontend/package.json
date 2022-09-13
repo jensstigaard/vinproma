@@ -7,7 +7,7 @@
   "license": "MIT",
   "dependencies": {
     "font-awesome": "^4.7.0",
-    "moment": "^2.29.2",
+    "moment": "^2.29.4",
     "pug": "^3.0.2",
     "tailwindcss": "^2.0.2",
     "vue": "^2.6.12",
