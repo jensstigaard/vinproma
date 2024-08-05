@@ -67,7 +67,7 @@
     "fibers": "^5.0.0",
     "lint-staged": "^10.5",
     "prettier": "^2.2.1",
-    "pug": "^3.0.2",
+    "pug": "^3.0.3",
     "pug-plain-loader": "^1.1",
     "sass": "^1",
     "sass-loader": "^10",
