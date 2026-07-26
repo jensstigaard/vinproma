@@ -56,7 +56,7 @@
     "@vue/cli-service": "^4.5",
     "@vue/eslint-config-prettier": "^6.0",
     "@vue/eslint-config-typescript": "^7.0",
-    "body-parser": "^1.19",
+    "body-parser": "^1.20",
     "bufferutil": "^4.0",
     "cookie-parser": "^1.4",
     "deepmerge": "^4.2",
