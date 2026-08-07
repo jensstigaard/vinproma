@@ -31,7 +31,7 @@
     "express": "^4.17",
     "ip": "^1.1",
     "vmix-js-utils": "^3",
-    "vue": "^2.6",
+    "vue": "^3.0",
     "vue-class-component": "^7.2",
     "vue-debounce-decorator": "^1",
     "vue-directive-long-press": "^1",
